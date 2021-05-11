@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  first_name: 
+  last_name: 
+  email: 
+  username: 
+  password: 
+  access_right_enum: 
+
+two:
+  user_id: 1
+  first_name: 
+  last_name: 
+  email: 
+  username: 
+  password: 
+  access_right_enum: 

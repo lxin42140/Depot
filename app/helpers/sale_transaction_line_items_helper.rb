@@ -1,0 +1,2 @@
+module SaleTransactionLineItemsHelper
+end

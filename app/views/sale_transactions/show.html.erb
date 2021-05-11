@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @sale_transaction.transaction_id %>
+</p>
+
+<p>
+  <strong>Total line item:</strong>
+  <%= @sale_transaction.total_line_item %>
+</p>
+
+<p>
+  <strong>Total quantity:</strong>
+  <%= @sale_transaction.total_quantity %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @sale_transaction.total_amount %>
+</p>
+
+<p>
+  <strong>Decimal:</strong>
+  <%= @sale_transaction.decimal %>
+</p>
+
+<p>
+  <strong>Transaction date:</strong>
+  <%= @sale_transaction.transaction_date %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @sale_transaction.Date %>
+</p>
+
+<%= link_to 'Edit', edit_sale_transaction_path(@sale_transaction) %> |
+<%= link_to 'Back', sale_transactions_path %>

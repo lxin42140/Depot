@@ -1,0 +1,1 @@
+json.partial! "sale_transaction_line_items/sale_transaction_line_item", sale_transaction_line_item: @sale_transaction_line_item
