@@ -9,7 +9,15 @@ class User < ApplicationRecord
     }
   validates :first_name, :last_name, :email, :username, :password, :access_right_enum, presence: true
   validates :email, :username, uniqueness: true
-    
+
+  cattr_accessor :current_user
+
+  def self.isCustomer
+    raise ArgumentError.new "No user is logged in!" if User.current_user.nil?
+    @isCustomer
+    User.current_user.access_right_enum == 1 ? @isCustomer = true : @isCustomer = false
+    return @isCustomer
+  end 
 end
 
 ##

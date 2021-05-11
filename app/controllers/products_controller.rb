@@ -21,21 +21,41 @@ class ProductsController < ApplicationController
 
   # POST /products or /products.json
   def create
-    @product = Product.new(product_params)
+      begin
+        if User.isCustomer
+          redirect_to(root_path, notice: 'No access right') 
+          return
+        end
+        rescue ArgumentError
+          redirect_to(root_path, notice: 'No user logged in')
+          return
+      end 
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+      @product = Product.new(product_params)
+  
+      respond_to do |format|
+        if @product.save
+          format.html { redirect_to @product, notice: "Product was successfully created." }
+          format.json { render :show, status: :created, location: @product }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    begin
+      if User.isCustomer
+        redirect_to(root_path, notice: 'No access right') 
+        return
+      end
+      rescue ArgumentError
+        redirect_to(root_path, notice: 'No user logged in')
+        return
+    end 
+    
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: "Product was successfully updated." }
@@ -49,6 +69,9 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
+    #check access right
+    self.check_access_right
+
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
@@ -66,4 +89,5 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:product_id, :name, :description, :unit_price)
     end
+  
 end
