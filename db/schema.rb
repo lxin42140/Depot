@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_034209) do
+ActiveRecord::Schema.define(version: 2021_05_11_060735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_05_11_034209) do
     t.date "transaction_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "user_id"
     t.string "integer"
+    t.integer "user_id"
   end
 
   create_table "staff_logs", force: :cascade do |t|
@@ -58,13 +58,24 @@ ActiveRecord::Schema.define(version: 2021_05_11_034209) do
     t.integer "user_id"
     t.string "first_name"
     t.string "last_name"
-    t.string "email"
+    t.string "email", default: "", null: false
     t.string "username"
     t.string "password"
     t.integer "access_right_enum"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "type"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "sale_transaction_line_items", "products", name: "sale_transaction_line_items_product_id_fkey"
+  add_foreign_key "sale_transaction_line_items", "sale_transactions", name: "sale_transaction_line_items_sale_transaction_id_fkey"
+  add_foreign_key "sale_transactions", "users", name: "sale_transactions_user_id_fkey"
+  add_foreign_key "staff_logs", "products", name: "staff_logs_product_id_fkey"
+  add_foreign_key "staff_logs", "users", column: "staff_id", name: "staff_logs_staff_id_fkey"
 end
