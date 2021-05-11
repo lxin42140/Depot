@@ -3,24 +3,36 @@ class SaleTransactionsController < ApplicationController
 
   # GET /sale_transactions or /sale_transactions.json
   def index
-    @sale_transactions = SaleTransaction.all
+    begin
+      if User.isCustomer != true
+        redirect_to(root_path, notice: 'No access right - Customers only!') 
+        return
+      end
+      rescue NullPointerException
+        redirect_to "/users/sign_in", notice: 'Please sign in!'
+        return
+    end 
+
+    @all_sale_transactions = SaleTransaction.all
+    @sale_transactions = @all_sale_transactions.select { |all_sale_transactions| all_sale_transactions.user_id == User.current_user.id }
+
   end
 
   # GET /sale_transactions/1 or /sale_transactions/1.json
   def show
   end
 
-  # GET /sale_transactions/new
-  def new
-    @sale_transaction = SaleTransaction.new
-  end
+  # # GET /sale_transactions/new
+  # def new
+  #   @sale_transaction = SaleTransaction.new
+  # end
 
-  # GET /sale_transactions/1/edit
-  def edit
-  end
+  # # GET /sale_transactions/1/edit
+  # def edit
+  # end
 
   # POST /sale_transactions or /sale_transactions.json
-  def create
+  def self.create
     @sale_transaction = SaleTransaction.new(sale_transaction_params)
 
     respond_to do |format|
@@ -34,27 +46,27 @@ class SaleTransactionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sale_transactions/1 or /sale_transactions/1.json
-  def update
-    respond_to do |format|
-      if @sale_transaction.update(sale_transaction_params)
-        format.html { redirect_to @sale_transaction, notice: "Sale transaction was successfully updated." }
-        format.json { render :show, status: :ok, location: @sale_transaction }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @sale_transaction.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # # PATCH/PUT /sale_transactions/1 or /sale_transactions/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @sale_transaction.update(sale_transaction_params)
+  #       format.html { redirect_to @sale_transaction, notice: "Sale transaction was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @sale_transaction }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @sale_transaction.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
-  # DELETE /sale_transactions/1 or /sale_transactions/1.json
-  def destroy
-    @sale_transaction.destroy
-    respond_to do |format|
-      format.html { redirect_to sale_transactions_url, notice: "Sale transaction was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  # # DELETE /sale_transactions/1 or /sale_transactions/1.json
+  # def destroy
+  #   @sale_transaction.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to sale_transactions_url, notice: "Sale transaction was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

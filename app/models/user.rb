@@ -13,7 +13,7 @@ class User < ApplicationRecord
   cattr_accessor :current_user
 
   def self.isCustomer
-    raise ArgumentError.new "No user is logged in!" if User.current_user.nil?
+    raise NullPointerException.new "No user is logged in!" if User.current_user.nil?
     @isCustomer
     User.current_user.access_right_enum == 1 ? @isCustomer = true : @isCustomer = false
     return @isCustomer

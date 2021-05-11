@@ -1,0 +1,2 @@
+class NullPointerException < Exception; 
+end

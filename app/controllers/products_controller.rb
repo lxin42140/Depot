@@ -12,25 +12,35 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
+    # access right
+    begin
+      if User.isCustomer
+        redirect_to(root_path, notice: 'No access right - Manager only!') 
+        return
+      end
+      rescue NullPointerException
+        redirect_to "/users/sign_in", notice: 'Please sign in!'
+        return
+    end 
+
     @product = Product.new
   end
 
   # GET /products/1/edit
   def edit
+    begin
+      if User.isCustomer
+        redirect_to(root_path, notice: 'No access right') 
+        return
+      end
+      rescue ArgumentError
+        redirect_to(root_path, notice: 'No user logged in')
+        return
+    end 
   end
 
   # POST /products or /products.json
   def create
-      begin
-        if User.isCustomer
-          redirect_to(root_path, notice: 'No access right') 
-          return
-        end
-        rescue ArgumentError
-          redirect_to(root_path, notice: 'No user logged in')
-          return
-      end 
-
       @product = Product.new(product_params)
   
       respond_to do |format|
@@ -55,7 +65,7 @@ class ProductsController < ApplicationController
         redirect_to(root_path, notice: 'No user logged in')
         return
     end 
-    
+
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: "Product was successfully updated." }
