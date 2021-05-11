@@ -18,19 +18,6 @@ class SaleTransactionsController < ApplicationController
 
   end
 
-  # GET /sale_transactions/1 or /sale_transactions/1.json
-  def show
-  end
-
-  # # GET /sale_transactions/new
-  # def new
-  #   @sale_transaction = SaleTransaction.new
-  # end
-
-  # # GET /sale_transactions/1/edit
-  # def edit
-  # end
-
   # POST /sale_transactions or /sale_transactions.json
   def self.create
     @sale_transaction = SaleTransaction.new(sale_transaction_params)
@@ -46,6 +33,31 @@ class SaleTransactionsController < ApplicationController
     end
   end
 
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_sale_transaction
+      @sale_transaction = SaleTransaction.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def sale_transaction_params
+      params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
+    end
+end
+
+  # GET /sale_transactions/1 or /sale_transactions/1.json
+  # def show
+  # end
+
+  # # GET /sale_transactions/new
+  # def new
+  #   @sale_transaction = SaleTransaction.new
+  # end
+
+  # # GET /sale_transactions/1/edit
+  # def edit
+  # end
+  
   # # PATCH/PUT /sale_transactions/1 or /sale_transactions/1.json
   # def update
   #   respond_to do |format|
@@ -67,15 +79,3 @@ class SaleTransactionsController < ApplicationController
   #     format.json { head :no_content }
   #   end
   # end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sale_transaction
-      @sale_transaction = SaleTransaction.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def sale_transaction_params
-      params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
-    end
-end

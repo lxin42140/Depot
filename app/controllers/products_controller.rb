@@ -55,6 +55,7 @@ class ProductsController < ApplicationController
   end
 
   # PATCH/PUT /products/1 or /products/1.json
+  # Staff log is created
   def update
     begin
       if User.isCustomer
