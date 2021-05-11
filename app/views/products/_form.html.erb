@@ -13,17 +13,17 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true%>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, required: true %>
   </div>
 
   <div class="field">
     <%= form.label :unit_price %>
-    <%= form.text_field :unit_price %>
+    <%= form.number_field  :unit_price, required: true, in: 1.0..10000.0 %>
   </div>
 
   <div class="actions">
