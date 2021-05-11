@@ -9,13 +9,21 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
+      
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <p>Welcome, <%= current_user.username %></p>
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Register', new_user_registration_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
+        </li>
+      <% end %>
     </ul>
-    <%# <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> %>
+
   </div>
 </nav>

@@ -9,8 +9,6 @@ class User < ApplicationRecord
     }
   validates :first_name, :last_name, :email, :username, :password, :access_right_enum, presence: true
   validates :email, :username, uniqueness: true
-  has_secure_password
-  #validates that the two password match
     
 end
 
