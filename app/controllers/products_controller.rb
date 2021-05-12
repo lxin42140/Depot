@@ -6,7 +6,8 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.order(:id)
+    #only show products not deleted
+    @products = Product.where(is_deleted: false).order(:id)
     @user = nil
     #assign user to current user only if the user is manager
     if User.current_user.present? && User.current_user[:access_right_enum] == 2
@@ -58,7 +59,10 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    @product.destroy
+    #soft delete
+
+    @product.update(is_deleted: true)
+
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
