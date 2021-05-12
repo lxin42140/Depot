@@ -15,3 +15,27 @@
  */
 
 @import "bootstrap";
+
+body,
+body > p,
+body > ol,
+body > ul,
+body > td {
+  margin: 8px !important;
+}
+
+@media all and (max-width: 800px) {
+  #columns {
+    flex-direction: column-reverse;
+  }
+}
+
+@media all and (max-width: 500px) {
+  #banner {
+    height: 1em;
+  }
+
+  #banner .title {
+    display: none;
+  }
+}

@@ -12,16 +12,20 @@
   </thead>
 
   <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.id %></td>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.unit_price %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% cache @products do %>
+      <% @products.each do |product| %>
+        <% cache product do %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= sanitize(product.name) %></td>
+            <td><%= sanitize(product.description) %></td>
+            <td><%= number_to_currency(product.unit_price) %></td>
+            <td><%= link_to 'Show', product %></td>
+            <td><%= link_to 'Edit', edit_product_path(product) %></td>
+            <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      <% end %>
     <% end %>
   </tbody>
 </table>
