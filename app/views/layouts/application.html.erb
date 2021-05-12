@@ -13,12 +13,16 @@
 
   <body>
     <%= render 'shared/navbar' %>
-    <p class="notice"><%= notice %> </p>
-    <p class="alert"><%= alert %> </p>
     <% flash.each do |type, msg| %>
-      <div>
-        <%= msg %>
-      </div>
+      <% if type == "error" %>
+        <div style="color:red;">
+          <%= msg %>
+        </div>
+      <% else %>
+        <div>
+          <%= msg %>
+        </div>
+      <% end %>
     <% end %>
     <%= yield %>
   </body>

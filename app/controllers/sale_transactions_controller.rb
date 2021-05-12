@@ -8,6 +8,19 @@ class SaleTransactionsController < ApplicationController
     @sale_transactions = @all_sale_transactions.select { |all_sale_transactions| all_sale_transactions.user_id == User.current_user.id }
   end
 
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sale_transaction
+    @sale_transaction = SaleTransaction.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def sale_transaction_params
+    params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
+  end
+
+end
+
   # POST /sale_transactions or /sale_transactions.json
   # def self.create
   #   @sale_transaction = SaleTransaction.new(sale_transaction_params)
@@ -22,20 +35,7 @@ class SaleTransactionsController < ApplicationController
   #     end
   #   end
   # end
-
-  private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_sale_transaction
-    @sale_transaction = SaleTransaction.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def sale_transaction_params
-    params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
-  end
-
-end
-
+  
   # GET /sale_transactions/1 or /sale_transactions/1.json
   # def show
   # end

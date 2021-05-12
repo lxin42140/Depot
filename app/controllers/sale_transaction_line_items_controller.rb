@@ -7,6 +7,7 @@ class SaleTransactionLineItemsController < ApplicationController
     @sale_transaction_line_items = SaleTransactionLineItem.all
   end
 
+end
   # # GET /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
   # def show
   # end
@@ -67,4 +68,4 @@ class SaleTransactionLineItemsController < ApplicationController
   #   def sale_transaction_line_item_params
   #     params.require(:sale_transaction_line_item).permit(:item_id, :quantity, :subtotal, :decimal)
   #   end
-end
+
