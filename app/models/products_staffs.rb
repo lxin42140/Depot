@@ -1,4 +1,4 @@
-class StaffLog < ApplicationRecord
+class Product-Staff < ApplicationRecord
     belongs_to :product
     belongs_to :staff
 
