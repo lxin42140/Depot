@@ -1,18 +1,9 @@
 class SaleTransactionLineItemsController < ApplicationController
   before_action :set_sale_transaction_line_item, only: %i[ show edit update destroy ]
+  before_action :require_customer
 
   # GET /sale_transaction_line_items or /sale_transaction_line_items.json
-  def index
-    begin
-      if User.isCustomer != true
-        redirect_to(root_path, notice: 'No access right - Customers only!') 
-        return
-      end
-      rescue NullPointerException
-        redirect_to "/users/sign_in", notice: 'Please sign in!'
-        return
-    end 
-    
+  def index    
     @sale_transaction_line_items = SaleTransactionLineItem.all
   end
 

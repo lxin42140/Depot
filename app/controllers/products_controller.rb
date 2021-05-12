@@ -12,31 +12,14 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    # access right
-    begin
-      if User.isCustomer
-        redirect_to(root_path, notice: 'No access right - Manager only!') 
-        return
-      end
-      rescue NullPointerException
-        redirect_to "/users/sign_in", notice: 'Please sign in!'
-        return
-    end 
+    self.require_manager
 
     @product = Product.new
   end
 
   # GET /products/1/edit
   def edit
-    begin
-      if User.isCustomer
-        redirect_to(root_path, notice: 'No access right') 
-        return
-      end
-      rescue ArgumentError
-        redirect_to(root_path, notice: 'No user logged in')
-        return
-    end 
+    self.require_manager
   end
 
   # POST /products or /products.json
@@ -57,15 +40,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   # Staff log is created
   def update
-    begin
-      if User.isCustomer
-        redirect_to(root_path, notice: 'No access right') 
-        return
-      end
-      rescue ArgumentError
-        redirect_to(root_path, notice: 'No user logged in')
-        return
-    end 
+    self.require_manager
 
     respond_to do |format|
       if @product.update(product_params)
@@ -80,8 +55,7 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    #check access right
-    self.check_access_right
+    self.require_manager
 
     @product.destroy
     respond_to do |format|

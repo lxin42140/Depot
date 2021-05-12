@@ -1,48 +1,39 @@
 class SaleTransactionsController < ApplicationController
-  before_action :set_sale_transaction, only: %i[ show edit update destroy ]
+  before_action :set_sale_transaction, only: %i[ show ]
+  before_action :require_customer
 
   # GET /sale_transactions or /sale_transactions.json
   def index
-    begin
-      if User.isCustomer != true
-        redirect_to(root_path, notice: 'No access right - Customers only!') 
-        return
-      end
-      rescue NullPointerException
-        redirect_to "/users/sign_in", notice: 'Please sign in!'
-        return
-    end 
-
     @all_sale_transactions = SaleTransaction.all
     @sale_transactions = @all_sale_transactions.select { |all_sale_transactions| all_sale_transactions.user_id == User.current_user.id }
-
   end
 
   # POST /sale_transactions or /sale_transactions.json
-  def self.create
-    @sale_transaction = SaleTransaction.new(sale_transaction_params)
+  # def self.create
+  #   @sale_transaction = SaleTransaction.new(sale_transaction_params)
 
-    respond_to do |format|
-      if @sale_transaction.save
-        format.html { redirect_to @sale_transaction, notice: "Sale transaction was successfully created." }
-        format.json { render :show, status: :created, location: @sale_transaction }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @sale_transaction.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @sale_transaction.save
+  #       format.html { redirect_to @sale_transaction, notice: "Sale transaction was successfully created." }
+  #       format.json { render :show, status: :created, location: @sale_transaction }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @sale_transaction.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sale_transaction
-      @sale_transaction = SaleTransaction.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sale_transaction
+    @sale_transaction = SaleTransaction.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def sale_transaction_params
-      params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
-    end
+  # Only allow a list of trusted parameters through.
+  def sale_transaction_params
+    params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
+  end
+
 end
 
   # GET /sale_transactions/1 or /sale_transactions/1.json
