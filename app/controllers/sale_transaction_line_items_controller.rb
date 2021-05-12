@@ -3,7 +3,9 @@ class SaleTransactionLineItemsController < ApplicationController
   
   before_action :set_cart, only: [:create]
   before_action :set_sale_transaction_line_item, only: %i[ show edit update destroy ]
-  before_action :require_customer
+  before_action only: [:index, :show, :new, :edit, :create, :update, :destroy] do 
+    self.check_access(User.access_rights[:customer])
+  end
   skip_before_action :verify_authenticity_token
 
   # GET /sale_transaction_line_items or /sale_transaction_line_items.json

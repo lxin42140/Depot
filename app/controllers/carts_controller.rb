@@ -1,5 +1,10 @@
 class CartsController < ApplicationController
+  include CurrentCart
+
   before_action :set_cart, only: %i[ show edit update destroy ]
+  before_action only: [:index, :show, :new, :edit, :create, :update, :destroy] do 
+    self.check_access(User.access_rights[:customer])
+  end
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts or /carts.json
@@ -9,6 +14,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
+      @cart
   end
 
   # GET /carts/new

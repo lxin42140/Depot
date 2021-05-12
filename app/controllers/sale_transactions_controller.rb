@@ -1,6 +1,8 @@
 class SaleTransactionsController < ApplicationController
   before_action :set_sale_transaction, only: %i[ show ]
-  before_action :require_customer
+  before_action only: [:index] do 
+    self.check_access(User.access_rights[:customer])
+  end
 
   # GET /sale_transactions or /sale_transactions.json
   def index

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, :username, :password, :access_right_enum, presence: true
   validates :email, :username, uniqueness: true
 
-  cattr_accessor :current_user, :access_right
+  cattr_accessor :current_user
   
   enum access_right: {
     customer: 1,
