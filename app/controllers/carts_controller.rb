@@ -7,38 +7,9 @@ class CartsController < ApplicationController
   end
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
-  # GET /carts or /carts.json
+  #GET /carts or /carts.json
   def index
-    @carts = Cart.all
-  end
-
-  # GET /carts/1 or /carts/1.json
-  def show
-      @cart
-  end
-
-  # GET /carts/new
-  def new
-    @cart = Cart.new
-  end
-
-  # GET /carts/1/edit
-  def edit
-  end
-
-  # POST /carts or /carts.json
-  def create
-    @cart = Cart.new(cart_params)
-
-    respond_to do |format|
-      if @cart.save
-        format.html { redirect_to @cart, notice: "Cart was successfully created." }
-        format.json { render :show, status: :created, location: @cart }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
-      end
-    end
+    @cart = Cart.current_cart
   end
 
   # PATCH/PUT /carts/1 or /carts/1.json
@@ -56,8 +27,16 @@ class CartsController < ApplicationController
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id] = nil
+    if Cart.current_cart.user_id == User.current_user[:id]
+      # remove all sale transactions associated with the cart
+      ids_to_delete = []
+      for item in Cart.current_cart.sale_transaction_line_items
+        ids_to_delete << item.id
+      end
+      # destroy_all will delete all associated relations
+      SaleTransactionLineItem.where(:id => ids_to_delete).delete_all
+    end
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Your cart is currently empty' }
       format.json { head :no_content }
@@ -70,7 +49,6 @@ class CartsController < ApplicationController
       @cart = Cart.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def cart_params
       params.fetch(:cart, {})
     end
@@ -78,5 +56,34 @@ class CartsController < ApplicationController
     def invalid_cart
       redirect_to root_path, notice: 'Invalid cart'
     end
-    
+
 end
+
+ # GET /carts/1 or /carts/1.json
+  # def show
+  #     Cart.current_cart
+  # end
+
+# GET /carts/new
+  # def new
+  #   @cart = Cart.new
+  # end
+
+  # GET /carts/1/edit
+  # def edit
+  # end
+
+  # POST /carts or /carts.json
+  # def create()
+  #   @cart = Cart.new(cart_params)
+
+  #   respond_to do |format|
+  #     if @cart.save
+  #       format.html { redirect_to @cart, notice: "Cart was successfully created." }
+  #       format.json { render :show, status: :created, location: @cart }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @cart.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end

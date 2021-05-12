@@ -14,11 +14,10 @@ class User < ApplicationRecord
   }
 
   def self.isCustomer
-    raise NullPointerException.new "No user is logged in!" if User.current_user.nil?
-    @isCustomer
-    User.current_user.access_right_enum == 1 ? @isCustomer = true : @isCustomer = false
-    return @isCustomer
+    raise NoUserLoggedInException.new "No user is logged in!" if User.current_user.nil?
+    return User.current_user.access_right_enum == 1 ? true : false
   end 
+
 end
 
 ##
@@ -30,4 +29,3 @@ end
 #t.string :password
 #t.integer :access_right_enum
 #t.string :type
- 

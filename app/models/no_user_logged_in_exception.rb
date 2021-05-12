@@ -1,0 +1,2 @@
+class NoUserLoggedInException < Exception; 
+end

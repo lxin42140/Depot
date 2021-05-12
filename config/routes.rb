@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   #     constraints: ->(request){  User.current_user.present? && User.current_user.access_right_enum == 1}
   
   #resources
+  resources :carts, :path => "my_cart"
   resources :users
   resources :sale_transactions
   resources :sale_transaction_line_items

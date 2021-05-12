@@ -60,12 +60,20 @@ class ProductsController < ApplicationController
   # DELETE /products/1 or /products/1.json
   def destroy
     #soft delete
+    if @product.is_product_referenced_by_line_items
+      flash[:error] = "Product is in use!"
+      respond_to do |format|
+        format.html { redirect_to products_url}
+        format.json { head :no_content }
+      end
+      return
+    else 
+      @product.update(is_deleted: true)
 
-    @product.update(is_deleted: true)
-
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 

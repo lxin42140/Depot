@@ -29,11 +29,11 @@ class SaleTransactionLineItemsController < ApplicationController
   # POST /sale_transaction_line_items or /sale_transaction_line_items.json
   def create
     product = Product.find(params[:product_id])
-    @sale_transaction_line_item = @cart.add_product(product)
+    @sale_transaction_line_item = Cart.current_cart.add_product(product)
 
     respond_to do |format|
       if @sale_transaction_line_item.save
-        format.html { redirect_to @sale_transaction_line_item.cart, notice: "Sale transaction line item was successfully created." }
+        format.html { redirect_to "/carts", notice: "Item successfully added" }
         format.json { render :show, status: :created, location: @sale_transaction_line_item }
       else
         format.html { render :new, status: :unprocessable_entity }
