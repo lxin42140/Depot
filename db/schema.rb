@@ -10,22 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_062521) do
+ActiveRecord::Schema.define(version: 2021_05_12_032039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
-    t.integer "product_id"
     t.string "name"
     t.text "description"
     t.decimal "unit_price", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_deleted", default: false, null: false
   end
 
   create_table "sale_transaction_line_items", force: :cascade do |t|
-    t.integer "item_id"
     t.integer "quantity"
     t.decimal "subtotal", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
@@ -35,27 +39,24 @@ ActiveRecord::Schema.define(version: 2021_05_11_062521) do
   end
 
   create_table "sale_transactions", force: :cascade do |t|
-    t.integer "transaction_id"
     t.integer "total_line_item"
     t.integer "total_quantity"
     t.decimal "total_amount", precision: 8, scale: 2
     t.date "transaction_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "integer"
     t.integer "user_id"
   end
 
   create_table "staff_logs", force: :cascade do |t|
-    t.integer "log_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "product_id"
     t.integer "staff_id"
+    t.datetime "log_time", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer "user_id"
     t.string "first_name"
     t.string "last_name"
     t.string "email", default: "", null: false

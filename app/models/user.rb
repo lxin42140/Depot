@@ -3,14 +3,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  enum access_right: {
-      customer: 1,
-      manager: 2
-    }
   validates :first_name, :last_name, :email, :username, :password, :access_right_enum, presence: true
   validates :email, :username, uniqueness: true
 
-  cattr_accessor :current_user
+  cattr_accessor :current_user, :access_right
+  
+  enum access_right: {
+    customer: 1,
+    manager: 2
+  }
 
   def self.isCustomer
     raise NullPointerException.new "No user is logged in!" if User.current_user.nil?

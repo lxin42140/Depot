@@ -1,6 +1,6 @@
 class SaleTransaction < ApplicationRecord
     has_many :sale_transaction_line_items, dependent: :destroy
-    has_one :customer
+    belongs_to :customer
 
     #validations
     validates :total_line_item, :total_quantity, :total_amount, :transaction_date, presence: true

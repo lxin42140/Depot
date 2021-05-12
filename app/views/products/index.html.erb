@@ -7,9 +7,11 @@
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Unit price</th>
-      <th colspan="3"></th>
+      <th scope="col" colspan="4" style="text-align:center" >Action</th>
     </tr>
   </thead>
+
+  <%= link_to 'New Product', new_product_path %>
 
   <tbody>
     <% cache @products do %>
@@ -20,16 +22,17 @@
             <td><%= sanitize(product.name) %></td>
             <td><%= sanitize(product.description) %></td>
             <td><%= number_to_currency(product.unit_price) %></td>
-            <td><%= link_to 'Show', product %></td>
-            <td><%= link_to 'Edit', edit_product_path(product) %></td>
-            <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if @user %>
+              <td><%= link_to 'Show', product %></td>
+              <td><%= link_to 'Edit', edit_product_path(product) %></td>
+              <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% else %>
+              <!-- button_to defaults to POST request -->
+              <td><%= button_to 'Add to Cart', sale_transaction_line_items_path(product_id: product) %></td>
+            <% end %>
           </tr>
         <% end %>
       <% end %>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>

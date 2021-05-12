@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Line Item Id</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Subtotal</th>
+      <th scope="col" colspan="3" style="text-align:center" >Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @carts.sale_transaction_line_items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.subtotal) %></td>
+        <td><%= link_to 'Show', cart %></td>
+        <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
+        <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_cart_path(@cart) %> |
+<%= link_to 'Back', carts_path %>

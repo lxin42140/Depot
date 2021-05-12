@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Staff.create(first_name:"John", last_name:"Adam", email:"John@Adam.com",password:"password",access_right_enum:"manager")
+User.create(first_name:"John", last_name:"Adam", email:"John@Adam.com",password:"password",access_right_enum: 1)
 
-Customer.create(first_name:"Chris", last_name:"Bob", email:"Chris@Bob.com",password:"password",access_right_enum:"customer")
+User.create(first_name:"Chris", last_name:"Bob", email:"Chris@Bob.com",password:"password",access_right_enum: 2)
 
 Product.create(name:"product1", description:"product1", unit_price:10.00)
 Product.create(name:"product2", description:"product2", unit_price:20.00)

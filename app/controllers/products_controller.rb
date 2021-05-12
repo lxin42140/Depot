@@ -4,6 +4,11 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     @products = Product.order(:id)
+    @user = nil
+    #assign user to current user only if the user is manager
+    if User.current_user.present? && User.current_user.access_right == 2
+      @user = User.current_user
+    end
   end
 
   # GET /products/1 or /products/1.json
