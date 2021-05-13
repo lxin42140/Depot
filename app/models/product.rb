@@ -7,9 +7,8 @@ class Product < ApplicationRecord
 
     def is_product_referenced_by_line_items
         if SaleTransactionLineItem.find_by_product_id(self.id).nil?
-            puts "******************is_product_referenced_by_line_items: True"
-            return true
+            return false
         end 
-        return false
+        return true
     end
 end
