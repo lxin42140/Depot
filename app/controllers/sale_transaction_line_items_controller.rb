@@ -8,24 +8,6 @@ class SaleTransactionLineItemsController < ApplicationController
   end
   skip_before_action :verify_authenticity_token
 
-  # GET /sale_transaction_line_items or /sale_transaction_line_items.json
-  def index    
-    @sale_transaction_line_items = SaleTransactionLineItem.all
-  end
-
-  # GET /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
-  def show
-  end
-
-  # # GET /sale_transaction_line_items/new
-  def new
-    @sale_transaction_line_item = SaleTransactionLineItem.new
-  end
-
-  # GET /sale_transaction_line_items/1/edit
-  def edit
-  end
-
   # POST /sale_transaction_line_items or /sale_transaction_line_items.json
   def create
     product = Product.find(params[:product_id])
@@ -36,7 +18,8 @@ class SaleTransactionLineItemsController < ApplicationController
         format.html { redirect_to "/my_cart", notice: "Item successfully added" }
         format.json { render :show, status: :created, location: @sale_transaction_line_item }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        flash[:error] = "Could not update cart"
+        format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -44,23 +27,28 @@ class SaleTransactionLineItemsController < ApplicationController
 
   # PATCH/PUT /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
   def update
+    product = Product.find(@sale_transaction_line_item[:product_id])
+    if params[:increment]
+      @sale_transaction_line_item = Cart.current_cart.add_product(product)
+      @message = "Item increased"
+    else 
+      @sale_transaction_line_item = Cart.current_cart.remove_product(product)
+      @message = "Item decreased"
+    end 
+
     respond_to do |format|
-      if @sale_transaction_line_item.update(sale_transaction_line_item_params)
-        format.html { redirect_to @sale_transaction_line_item, notice: "Sale transaction line item was successfully updated." }
+      if @sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete
+          @message = "Item removed from cart"
+          format.html { redirect_to "/my_cart", notice: @message }
+          format.json { render :show, status: :ok, location: @sale_transaction_line_item }
+      elsif @sale_transaction_line_item.save
+        format.html { redirect_to "/my_cart", notice: @message }
         format.json { render :show, status: :ok, location: @sale_transaction_line_item }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        flash[:error] = "Could not update cart"
+        format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
-  def destroy
-    @sale_transaction_line_item.destroy
-    respond_to do |format|
-      format.html { redirect_to sale_transaction_line_items_url, notice: "Sale transaction line item was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -77,6 +65,31 @@ class SaleTransactionLineItemsController < ApplicationController
 
 end
 
+  # GET /sale_transaction_line_items or /sale_transaction_line_items.json
+  # def index    
+  #   @sale_transaction_line_items = SaleTransactionLineItem.all
+  # end
+
+  # GET /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
+  # def show
+  # end
+
+  # # GET /sale_transaction_line_items/new
+  # def new
+  #   @sale_transaction_line_item = SaleTransactionLineItem.new
+  # end
+
+  # GET /sale_transaction_line_items/1/edit
+  # def edit
+  # end
+  # DELETE /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
+  # def destroy
+  #   @sale_transaction_line_item.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to sale_transaction_line_items_url, notice: "Sale transaction line item was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
 
 
