@@ -10,15 +10,7 @@
   </thead>
 
   <tbody>
-    <% if @cart %>
-      <% @cart.sale_transaction_line_items.each do |item| %>
-        <tr>
-          <td><%= item.id %></td>
-          <td><%= item.quantity %></td>
-          <td><%= number_to_currency(item.subtotal) %></td>
-        </tr>
-      <% end %>
-    <% end %>
+    <%= render @cart.sale_transaction_line_items %>
   </tbody>
 
 </table>

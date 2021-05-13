@@ -33,7 +33,7 @@ class SaleTransactionLineItemsController < ApplicationController
 
     respond_to do |format|
       if @sale_transaction_line_item.save
-        format.html { redirect_to "/carts", notice: "Item successfully added" }
+        format.html { redirect_to "/my_cart", notice: "Item successfully added" }
         format.json { render :show, status: :created, location: @sale_transaction_line_item }
       else
         format.html { render :new, status: :unprocessable_entity }
