@@ -1,39 +1,25 @@
-<p id="notice"><%= notice %></p>
+<h1>My Sale Transactions</h1>
 
-<h1>Sale Transactions</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Transaction</th>
+      <th>Transaction ID</th>
       <th>Total line item</th>
       <th>Total quantity</th>
       <th>Total amount</th>
-      <th>Decimal</th>
       <th>Transaction date</th>
-      <th>Date</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @sale_transactions.each do |sale_transaction| %>
       <tr>
-        <td><%= sale_transaction.transaction_id %></td>
+        <td><%= sale_transaction.id %></td>
         <td><%= sale_transaction.total_line_item %></td>
         <td><%= sale_transaction.total_quantity %></td>
-        <td><%= sale_transaction.total_amount %></td>
-        <td><%= sale_transaction.decimal %></td>
+        <td><%= number_to_currency(sale_transaction.total_amount) %></td>
         <td><%= sale_transaction.transaction_date %></td>
-        <td><%= sale_transaction.Date %></td>
-        <td><%= link_to 'Show', sale_transaction %></td>
-        <td><%= link_to 'Edit', edit_sale_transaction_path(sale_transaction) %></td>
-        <td><%= link_to 'Destroy', sale_transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Sale Transaction', new_sale_transaction_path %>

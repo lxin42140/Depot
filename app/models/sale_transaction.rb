@@ -1,6 +1,7 @@
 class SaleTransaction < ApplicationRecord
     has_many :sale_transaction_line_items, dependent: :destroy
-    belongs_to :customer
+    #Customer STI not working
+    belongs_to :user
 
     #validations
     validates :total_line_item, :total_quantity, :total_amount, :transaction_date, presence: true

@@ -6,9 +6,9 @@ class Cart < ApplicationRecord
     cattr_accessor :current_cart
 
     def add_product(product)
-        current_item = sale_transaction_line_items.find_by(product_id: product.id)
-        if current_item
-            current_item.quantity += 1
+        current_item = sale_transaction_line_items.where("product_id = #{product.id} and is_sold = false")[0]
+        if current_item.present?
+            current_item[:quantity] += 1
             current_item[:subtotal] += product[:unit_price]
         else
             current_item = sale_transaction_line_items.build(product_id: product.id)

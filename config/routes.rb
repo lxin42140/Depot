@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :carts
   devise_for :users
   root to: "products#index"
   # match '*path' => redirect("products#index"), via: [:get]
@@ -11,7 +10,7 @@ Rails.application.routes.draw do
   #resources
   resources :carts, :path => "my_cart"
   resources :users
-  resources :sale_transactions
+  resources :sale_transactions, :path => "my_transactions"
   resources :sale_transaction_line_items
   resources :products
 end
