@@ -15,10 +15,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1 or /products/1.json
-  def show
-  end
-
   # GET /products/new
   def new
     @product = Product.new
@@ -26,15 +22,18 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @product
   end
 
   # POST /products or /products.json
   def create
       @product = Product.new(product_params)
-  
+ 
       respond_to do |format|
         if @product.save
-          format.html { redirect_to @product, notice: "Product was successfully created." }
+          ProductsStaffs.create_log(User.current_user[:id], @product[:id], "create")        
+          format.js
+          format.html { render @product, notice: "Product was successfully created." }
           format.json { render :show, status: :created, location: @product }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +47,10 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: "Product was successfully updated." }
+        ProductsStaffs.create_log(User.current_user[:id], @product[:id], "update")        
+        @products = Product.where(is_deleted: false).order(:id)
+        format.html { redirect_to "/products", notice: "Product was successfully updated." }
+        format.js
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,10 +61,8 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    
     @user = User.current_user
-    
-    #soft delete
+    #if product is in cart, cannot delete
     if @product.is_product_referenced_by_line_items
       flash[:error] = "Product is in use!"
       respond_to do |format|
@@ -71,7 +71,9 @@ class ProductsController < ApplicationController
       end
       return
     else 
+      # soft delete
       @product.update(is_deleted: true)
+      ProductsStaffs.create_log(User.current_user[:id], @product[:id], "delete")        
       @products = Product.where(is_deleted: false).order(:id)
       respond_to do |format|
         format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
@@ -93,3 +95,7 @@ class ProductsController < ApplicationController
     end
   
 end
+
+  # GET /products/1 or /products/1.json
+  # def show
+  # end
