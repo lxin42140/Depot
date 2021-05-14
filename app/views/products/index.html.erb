@@ -1,5 +1,7 @@
 <h1>Products</h1>
 
+<%= link_to 'Create', new_product_path, remote: true %>
+
 <table class="table">
   <thead>
     <tr>
@@ -11,8 +13,6 @@
     </tr>
   </thead>
 
-  
-
   <tbody>
     <% @products.each do |product| %>
       <tr>
@@ -21,8 +21,7 @@
         <td><%= sanitize(product.description) %></td>
         <td><%= number_to_currency(product.unit_price) %></td>
         <% if @user.present? %>
-          <td><%= link_to 'Create', new_product_path %></td>
-          <td><%= link_to 'Edit', edit_product_path(product) %></td>
+          <td><%= link_to 'Edit', edit_product_path(product) %></div></td>
           <td><%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% else %>
           <!-- button_to defaults to POST request -->

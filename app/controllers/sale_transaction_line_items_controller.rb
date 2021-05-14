@@ -34,20 +34,27 @@ class SaleTransactionLineItemsController < ApplicationController
     else 
       @sale_transaction_line_item = Cart.current_cart.remove_product(product)
       @message = "Item decreased"
-    end 
+    end
 
     respond_to do |format|
+      @updated = false
       if @sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete
           @message = "Item removed from cart"
-          format.html { redirect_to "/my_cart", notice: @message }
-          format.json { render :show, status: :ok, location: @sale_transaction_line_item }
+          @updated = true
       elsif @sale_transaction_line_item.save
-        format.html { redirect_to "/my_cart", notice: @message }
-        format.json { render :show, status: :ok, location: @sale_transaction_line_item }
-      else
+        @updated = true
+      end
+
+      unless @updated == true
         flash[:error] = "Could not update cart"
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }
+      else
+        @cart = Cart.new
+        @cart.sale_transaction_line_items = SaleTransactionLineItem.where("cart_id = ? and is_sold = false", Cart.current_cart.id)
+        format.html { redirect_to "/my_cart", notice: @message }
+        format.js
+        format.json { render :show, status: :ok, location: @sale_transaction_line_item }
       end
     end
   end

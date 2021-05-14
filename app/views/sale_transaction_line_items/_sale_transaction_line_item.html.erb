@@ -2,7 +2,7 @@
     <td><%= sale_transaction_line_item.id %></td>
     <td><%= sale_transaction_line_item.quantity %></td>
     <td><%= number_to_currency(sale_transaction_line_item.subtotal) %></td>
-    <td><%= button_to 'Increment', "/sale_transaction_line_items/#{sale_transaction_line_item.id}", params: {:increment => true }, method: :put %></td>
-    <td><%= button_to 'Decrement', "/sale_transaction_line_items/#{sale_transaction_line_item.id}", params: {:decrement => true }, method: :put %></td>
+    <td><%= button_to 'Increment', sale_transaction_line_item_path(sale_transaction_line_item.id), params: {:increment => true }, method: :put, remote: true %></td>
+    <td><%= button_to 'Decrement', sale_transaction_line_item_path(sale_transaction_line_item.id), params:{:decrement => true }, method: :put, remote: true %></td>
 </tr>
 

@@ -1,4 +1,5 @@
 <h1>My Cart</h1>
+
 <table class="table">
   <thead>
     <tr>
@@ -8,15 +9,14 @@
       <th scope="col" colspan="3" style="text-align:center" >Action</th>
     </tr>
   </thead>
-
-  <tbody>
+  <tbody id="cart">
     <%= render @cart.sale_transaction_line_items %>
   </tbody>
-
 </table>
 
-<p>Cart Total: <%= number_to_currency(@cart.total_price) %></p>
-<br/>
+<p id="total-price">
+  Cart Total: <%= number_to_currency(@cart.total_price) %>
+</p>
 
 <% if @cart.sale_transaction_line_items.present? %>
   <%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' } %>

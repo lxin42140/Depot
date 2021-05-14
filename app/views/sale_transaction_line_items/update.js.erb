@@ -1,0 +1,2 @@
+$('#cart').html("<%=j render(@cart.sale_transaction_line_items) %>");
+$('#total-price').html("Cart Total: <%= number_to_currency(@cart.total_price) %>");
