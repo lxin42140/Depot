@@ -1,0 +1,58 @@
+@startuml
+
+class User {
+    id,
+    first_name,
+    last_name,
+    email,
+    username,
+    password,
+    access_right
+}
+class Customer 
+class Staff 
+
+class Product {
+    id,
+    name,
+    description,
+    unit_price,
+    is_deleted
+}
+
+class SaleTransaction {
+    id,
+    total_line_item,
+    total_quantity,
+    total_amount,
+    transaction_date
+}
+
+class SaleTransactionLineItem {
+    id, 
+    subtotal,
+    quantity,
+    is_sold
+}
+
+class ProductsStaffs {
+    id,
+    operation
+}
+
+class Cart {
+    id
+}
+
+Customer -up-|> User: Inheritance
+Staff -up-|> User: Inheritance
+
+Customer ||-- Cart
+Cart ||--o{ SaleTransactionLineItem
+SaleTransactionLineItem }|--|| SaleTransaction
+SaleTransactionLineItem }o-- Product
+SaleTransaction }o--|| Customer
+Staff ||--o{ ProductsStaffs
+ProductsStaffs }o--|| Product
+
+@enduml

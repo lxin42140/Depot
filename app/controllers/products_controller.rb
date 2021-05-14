@@ -32,8 +32,8 @@ class ProductsController < ApplicationController
       respond_to do |format|
         if @product.save
           ProductsStaffs.create_log(User.current_user[:id], @product[:id], "create")        
+          format.html { redirect_to products_url, notice: "Product was successfully created." }
           format.js
-          format.html { render @product, notice: "Product was successfully created." }
           format.json { render :show, status: :created, location: @product }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         ProductsStaffs.create_log(User.current_user[:id], @product[:id], "update")        
         @products = Product.where(is_deleted: false).order(:id)
-        format.html { redirect_to "/products", notice: "Product was successfully updated." }
+        format.html { redirect_to products_url, notice: "Product was successfully updated." }
         format.js
         format.json { render :show, status: :ok, location: @product }
       else
