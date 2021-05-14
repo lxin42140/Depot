@@ -28,7 +28,8 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
       @product = Product.new(product_params)
- 
+      @user = User.current_user
+
       respond_to do |format|
         if @product.save
           ProductsStaffs.create_log(User.current_user[:id], @product[:id], "create")        
@@ -43,8 +44,9 @@ class ProductsController < ApplicationController
   end
 
   # PATCH/PUT /products/1 or /products/1.json
-  # Staff log is created
   def update
+    @user = User.current_user
+
     respond_to do |format|
       if @product.update(product_params)
         ProductsStaffs.create_log(User.current_user[:id], @product[:id], "update")        
