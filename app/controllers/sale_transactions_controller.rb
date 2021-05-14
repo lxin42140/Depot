@@ -38,6 +38,9 @@ class SaleTransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction_created == true
+        #send email
+        OrderMailer.received(@line_items).deliver_now
+
         format.html { redirect_to "/my_transactions", notice: "Sale transaction was successfully created." }
         format.json { render :show, status: :created, location: @sale_transaction }
       else

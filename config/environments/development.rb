@@ -74,4 +74,22 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  Demo::Application.configure do
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address => "mail.wright.com.sg",
+      :port => 587,
+      :domain => "mail.wright.com.sg",
+      :authentication => :login,
+      :enable_starttls_auto => true,
+      :openssl_verify_mode => 'none',
+      user_name: "xin.li@wright.com.sg",
+      password: "98674536qAz!",
+      enable_starttls_auto: true
+    }
+    end
+    
+
+
 end

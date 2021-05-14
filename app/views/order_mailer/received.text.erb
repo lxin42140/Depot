@@ -1,0 +1,6 @@
+Dear <%= @user.last_name %>
+
+Thank you for your recent order from The Demo Store.
+You ordered the following items:
+
+<%= render @sale_transaction_line_items -%>
