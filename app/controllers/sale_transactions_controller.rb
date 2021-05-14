@@ -45,7 +45,7 @@ class SaleTransactionsController < ApplicationController
         format.json { render :show, status: :created, location: @sale_transaction }
       else
         flash[:error] = "Could not check out"
-        format.html { render :index, status: :unprocessable_entity }
+        format.html { redirect_to "/my_transactions", status: :unprocessable_entity }
         format.json { render json: @sale_transaction.errors, status: :unprocessable_entity }
       end
     end

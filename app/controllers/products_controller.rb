@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
         format.json { render :show, status: :ok, location: @product }
       else
         format.js { render :new } # to show form validation errors
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to products_url, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
