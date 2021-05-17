@@ -1,0 +1,43 @@
+@startuml
+
+title Use Case Diagram 
+
+left to right direction
+
+actor Customer as c
+usecase "Login" as u1
+usecase "Logout" as u2
+usecase "View all products" as u3
+usecase "Add product to cart" as u4
+usecase "View shopping cart details" as u5
+usecase "Update product quantity in cart" as u6
+usecase "Check out shopping cart" as u7
+usecase "View all sale transactions" as u8
+
+c --> u1
+c --> u2
+c --> u3
+c --> u4
+c --> u5
+c --> u6
+c --> u7
+c --> u8
+
+actor Staff as s
+usecase "Update product details" as s1
+usecase "Create new product" as s2
+usecase "Delete product" as s3
+
+s --> u1
+s --> u2
+s --> u3
+s --> s1
+s --> s2
+s --> s3
+
+actor System as sys 
+usecase "Create product log" as sys1
+
+sys --> sys1
+
+@enduml
