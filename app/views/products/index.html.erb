@@ -1,4 +1,6 @@
-<h1>Products</h1>
+<br/>
+
+<h3>View All Products</h3>
 
 <div id="new-product">
 </div>
@@ -9,25 +11,38 @@
 <div id="errors">
 </div>
 
-<div class="container">
-	<table id="table_products" class="table table-striped table-bordered" role="datatable">
-		<thead>
-      <th scope="col">Product</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Unit price</th>
-      <th scope="col" style="text-align:center" >Action</th>
-		</thead>
+<div style="
+  width: 100%;
+  margin: 0 auto;
+">
+  <table id="table_products" class="display table table-striped table-bordered" role="datatable" style="width:100%">
+    
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Unit price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
     <tbody id="products">
       <%= render @products %>
     </tbody>
-	</table>
+
+  </table>
 </div>
 
 <script type="text/javascript">
   $(document).ready(function() {
     $('#table_products').DataTable({
-      "order": [[ 0, 'desc' ]]
+      order: [[ 0, 'desc' ]],
+      fixedColumns: { leftColumns: 1 },
+      scrollX: true,
+      scrollCollapse: true,
+      scrollY: "500px",
+      paging: false
     });
   });
 </script>

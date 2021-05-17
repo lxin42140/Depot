@@ -3,13 +3,17 @@
     <td><%= sanitize(product.name) %></td>
     <td><%= sanitize(product.description) %></td>
     <td><%= number_to_currency(product.unit_price) %></td>
-    <% if @user.present? %>
-        <td>
+    <td>
+        <% if @user.present? %>
             <%= link_to 'Create', new_product_path, remote: true %> &nbsp; 
             <%= link_to 'Edit', edit_product_path(product), remote: true %> &nbsp; 
             <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
-        </td>
-    <% else %>
-        <td><%= button_to 'Add to Cart', sale_transaction_line_items_path(product_id: product) %></td>
-    <% end %>
+        <% else %>
+            <span style="display:flex; flex-direction: row; align-items: center;">
+                <%= fa_icon "shopping-cart" %>&nbsp;
+                <%= link_to 'Add to Cart', sale_transaction_line_items_path(product_id: product), method: :post%>
+                <%# button_to 'Add to Cart', sale_transaction_line_items_path(product_id: product) %>
+            </span>
+        <% end %>
+    </td>
 </tr>
