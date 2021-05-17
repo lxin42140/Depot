@@ -1,24 +1,45 @@
-<h1>My Cart</h1>
+<br/>
 
-<table class="table">
+<h3>My Cart</h3>
+
+<table id="table_cart" class="display table table-striped table-bordered" role="datatable" style="width:100%">
   <thead>
     <tr>
       <th scope="col">Line Item Id</th>
       <th scope="col">Quantity</th>
       <th scope="col">Subtotal</th>
-      <th scope="col" colspan="3" style="text-align:center" >Action</th>
+      <th scope="col" style="text-align:center" >Action</th>
     </tr>
   </thead>
+
   <tbody id="cart">
     <%= render @cart.sale_transaction_line_items %>
   </tbody>
+
 </table>
 
-<p id="total-price">
-  Cart Total: <%= number_to_currency(@cart.total_price) %>
-</p>
+<div style="display:flex; flex-direction:column; align-items:center;">
+  <p id="total-price" style="font-size: 20px;">
+    <%= fa_icon "shopping-cart" %>&nbsp; Cart Total: <%= number_to_currency(@cart.total_price) %>
+  </p>
 
-<% if @cart.sale_transaction_line_items.present? %>
-  <%= button_to 'Empty cart', "/my_cart/#{@cart.id}", method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= button_to "Check out", sale_transactions_path, method: :post %>
-<% end %>
+  <div style="display:flex; flex-direction:row; align-items:center; padding-top: 10px;">
+    <% if @cart.sale_transaction_line_items.present? %>
+      <%= button_to 'Empty cart', "/my_cart/#{@cart.id}", method: :delete, data: { confirm: 'Are you sure?' } %> &nbsp;&nbsp;
+      <%= button_to "Check out", sale_transactions_path, method: :post %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#table_cart').DataTable({
+      scrollX: true,
+      scrollCollapse: true,
+      scrollY: "500px",
+      searching: false, 
+      paging: false, 
+      info: false
+    });
+  });
+</script>

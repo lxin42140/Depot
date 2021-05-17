@@ -1,6 +1,6 @@
 <h1>My Sale Transactions</h1>
 
-<table class="table">
+<table id="table_transactions" class="display table table-striped table-bordered" role="datatable" style="width:100%">
   <thead>
     <tr>
       <th>Transaction ID</th>
@@ -23,3 +23,12 @@
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#table_transactions').DataTable({
+      //auto sort by transaction date
+      order: [[ 4, 'desc' ]],
+    });
+  });
+</script>
