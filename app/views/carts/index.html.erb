@@ -19,6 +19,6 @@
 </p>
 
 <% if @cart.sale_transaction_line_items.present? %>
-  <%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= button_to 'Empty cart', "/my_cart/#{@cart.id}", method: :delete, data: { confirm: 'Are you sure?' } %>
   <%= button_to "Check out", sale_transactions_path, method: :post %>
 <% end %>

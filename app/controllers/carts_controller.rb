@@ -17,6 +17,7 @@ class CartsController < ApplicationController
         @cart.sale_transaction_line_items << line_item
       end 
     end
+    @cart[:id] = Cart.current_cart.id
   end
 
   # PATCH/PUT /carts/1 or /carts/1.json
