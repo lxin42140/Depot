@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     before_action :set_current_cart
     
     def set_current_cart
-      if current_user.cart.present? == false && User.isCustomer(current_user)
+      if User.isCustomer(current_user) && current_user.cart.present? == false
         cart = Cart.new
         cart.user = current_user
         cart.save!
@@ -14,8 +14,6 @@ class ApplicationController < ActionController::Base
         Cart.current_cart = current_user.cart
       end
       rescue NoUserLoggedInException
-        flash[:error] = "Unable to retrieve cart!"
-        redirect_to root_path
     end
 
     protected
