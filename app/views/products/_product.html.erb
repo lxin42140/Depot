@@ -1,4 +1,11 @@
 <tr>
+    <td>
+    <% product.images.each do |image| %>
+        <div style="width:300px;height:300px ">
+            <%= image_tag image, style:'width:100%;height:auto;' %>
+        </div>
+    <% end%>
+    </td>
     <td><%= product.id %></td>
     <td><%= sanitize(product.name) %></td>
     <td><%= sanitize(product.description) %></td>

@@ -32,6 +32,8 @@ gem "font-awesome-rails"
 
 gem 'devise'
 
+# gem 'mini_magick', '~> 4.8'
+
 # For exporting as zip
 # gem 'rubyzip', '>= 1.2.1'
 # gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
