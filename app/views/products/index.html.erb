@@ -23,7 +23,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Unit price</th>
-        <th>Action</th>
+        <th style="text-align: center">Action</th>
       </tr>
     </thead>
 
@@ -37,7 +37,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#table_products').DataTable({
-      order: [[ 0, 'desc' ]],
       fixedColumns: { leftColumns: 1 },
       scrollX: true,
       scrollCollapse: true,

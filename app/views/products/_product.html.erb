@@ -3,11 +3,20 @@
     <td><%= sanitize(product.name) %></td>
     <td><%= sanitize(product.description) %></td>
     <td><%= number_to_currency(product.unit_price) %></td>
-    <td>
+    <td style="display:flex; flex-direction:column; align-items:center; font-size: 15px;">
         <% if @user.present? %>
-            <%= link_to 'Create', new_product_path, remote: true %> &nbsp; 
-            <%= link_to 'Edit', edit_product_path(product), remote: true %> &nbsp; 
-            <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+            <span style="display:flex; flex-direction: row; align-items: center;">
+                <%= fa_icon "plus" %>&nbsp;
+                <%= link_to 'Add New Product', new_product_path, remote: true %> &nbsp; 
+            </span>
+            <span style="display:flex; flex-direction: row; align-items: center;">
+                <%= fa_icon "pencil" %>&nbsp;
+                <%= link_to 'Edit Product', edit_product_path(product), remote: true %> &nbsp; 
+            </span>
+            <span style="display:flex; flex-direction: row; align-items: center;">
+                <%= fa_icon "trash" %>&nbsp;
+                <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+            </span>
         <% else %>
             <span style="display:flex; flex-direction: row; align-items: center;">
                 <%= fa_icon "shopping-cart" %>&nbsp;
