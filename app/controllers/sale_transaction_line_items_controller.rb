@@ -14,7 +14,7 @@ class SaleTransactionLineItemsController < ApplicationController
     @sale_transaction_line_item = Cart.current_cart.add_product(product)
 
     respond_to do |format|
-      if @sale_transaction_line_item.save
+      if @sale_transaction_line_item.save!
         format.html { redirect_to "/my_cart", notice: "Item successfully added" }
         format.json { render :show, status: :created, location: @sale_transaction_line_item }
       else
@@ -27,9 +27,6 @@ class SaleTransactionLineItemsController < ApplicationController
 
   # PATCH/PUT /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
   def update
-    # puts "*******************"
-    # puts @sale_transaction_line_item.id
-
     if params[:increment]
       @sale_transaction_line_item.quantity += 1
     else 
@@ -37,14 +34,14 @@ class SaleTransactionLineItemsController < ApplicationController
     end
 
     respond_to do |format|
-      @updated = false
+      updated = false
       if @sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete
-          @updated = true
+          updated = true
       elsif @sale_transaction_line_item.save
-        @updated = true
+        updated = true
       end
 
-      unless @updated == true
+      unless updated == true
         flash[:error] = "Could not update cart"
         format.html { redirect_to "/my_cart", status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }

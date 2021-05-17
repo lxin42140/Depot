@@ -1,5 +1,5 @@
 class SaleTransactionLineItem < ApplicationRecord
-    has_one :sale_transaction
+    belongs_to :sale_transaction, optional: true
     belongs_to :cart, dependent: :destroy
     belongs_to :product
     
@@ -12,3 +12,4 @@ class SaleTransactionLineItem < ApplicationRecord
     end
         
 end
+ 

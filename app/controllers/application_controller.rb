@@ -5,14 +5,11 @@ class ApplicationController < ActionController::Base
     before_action :set_current_user_and_cart
     
     def set_current_user_and_cart
-      #assgin current user to logged in user
       User.current_user = current_user
-
       if User.isCustomer
         retrieve_or_create_cart
       end
       rescue NoUserLoggedInException
-      
     end
 
     protected

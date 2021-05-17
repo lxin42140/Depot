@@ -1,8 +1,17 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  
+  #*..*
+  has_many :products_staffs, class_name: "ProductsStaffs"
+  has_many :products, through: :products_staffs
+
+  #0..*
+  has_many :sale_transactions
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   validates :first_name, :last_name, :email, :username, :password, :access_right_enum, presence: true
   validates :email, :username, uniqueness: true
 
@@ -10,7 +19,7 @@ class User < ApplicationRecord
   
   enum access_right: {
     customer: 1,
-    manager: 2
+    admin: 2
   }
 
   def self.isCustomer

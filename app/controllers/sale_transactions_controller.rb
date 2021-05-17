@@ -10,36 +10,37 @@ class SaleTransactionsController < ApplicationController
 
   def create
     @sale_transaction = SaleTransaction.new
-    @sale_transaction[:total_line_item] = 0
-    @sale_transaction[:total_amount] = 0
-    @sale_transaction[:total_quantity] = 0
-
-    # retrieve all line items for cart is not marked as sold 
-    @line_items = SaleTransactionLineItem.select{|item| item.is_sold == false && item.cart_id == Cart.current_cart.id}
     
-    @transaction_created = false
+    line_items = Cart.current_cart.sale_transaction_line_items.select{|item| item.is_sold == false}
+    
+    transaction_created = false
 
-    # transaction to ensure that status of all line items are rolled back
     ActiveRecord::Base.transaction do
-      for item in @line_items do
+      @sale_transaction[:total_line_item] = 0
+      @sale_transaction[:total_amount] = 0
+      @sale_transaction[:total_quantity] = 0
+      @sale_transaction[:transaction_date] = Date.today
+      @sale_transaction.user = User.current_user
+
+      for item in line_items do
         @sale_transaction[:total_line_item] += 1
         @sale_transaction[:total_amount] += item[:subtotal]
         @sale_transaction[:total_quantity] += item[:quantity]
+        @sale_transaction.sale_transaction_line_items << item
         item[:is_sold] = true
+
         item.save!
       end
-      @sale_transaction[:user_id] = User.current_user.id
-      @sale_transaction[:transaction_date] = Date.today
-      # use a bang to throw an exception
+
       if @sale_transaction.save!
-        @transaction_created = true
+        transaction_created = true
       end
     end 
 
     respond_to do |format|
-      if @transaction_created == true
+      if transaction_created == true
         #send email
-        OrderMailer.received(@line_items).deliver_now
+        OrderMailer.received(line_items).deliver_now
 
         format.html { redirect_to "/my_transactions", notice: "Sale transaction was successfully created." }
         format.json { render :show, status: :created, location: @sale_transaction }
