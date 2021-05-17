@@ -27,19 +27,18 @@ class SaleTransactionLineItemsController < ApplicationController
 
   # PATCH/PUT /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
   def update
-    product = Product.find(@sale_transaction_line_item[:product_id])
+    # puts "*******************"
+    # puts @sale_transaction_line_item.id
+
     if params[:increment]
-      @sale_transaction_line_item = Cart.current_cart.add_product(product)
-      @message = "Item increased"
+      @sale_transaction_line_item.quantity += 1
     else 
-      @sale_transaction_line_item = Cart.current_cart.remove_product(product)
-      @message = "Item decreased"
+      @sale_transaction_line_item.quantity -= 1
     end
 
     respond_to do |format|
       @updated = false
       if @sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete
-          @message = "Item removed from cart"
           @updated = true
       elsif @sale_transaction_line_item.save
         @updated = true
