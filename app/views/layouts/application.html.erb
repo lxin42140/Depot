@@ -14,11 +14,11 @@
     <%= render 'shared/navbar' %>
     <% flash.each do |type, msg| %>
       <% if type == "error" %>
-        <div style="color:red;">
+        <div class="alert alert-danger" role="alert">
           <%= msg %>
         </div>
       <% else %>
-        <div>
+        <div class="alert alert-info" role="alert">
           <%= msg %>
         </div>
       <% end %>
