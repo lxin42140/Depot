@@ -26,6 +26,8 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#table_products').DataTable();
+    $('#table_products').DataTable({
+      "order": [[ 0, 'desc' ]]
+    });
   });
 </script>
