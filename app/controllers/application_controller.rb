@@ -2,14 +2,20 @@ class ApplicationController < ActionController::Base
 
     protect_from_forgery with: :exception
     before_action :update_allowed_parameters, if: :devise_controller?
-    before_action :set_current_user_and_cart
+    before_action :set_current_cart
     
-    def set_current_user_and_cart
-      User.current_user = current_user
-      if User.isCustomer
-        retrieve_or_create_cart
+    def set_current_cart
+      if current_user.cart.present? == false && User.isCustomer(current_user)
+        cart = Cart.new
+        cart.user = current_user
+        cart.save!
+        Cart.current_cart = cart
+      elsif User.isCustomer(current_user)
+        Cart.current_cart = current_user.cart
       end
       rescue NoUserLoggedInException
+        flash[:error] = "Unable to retrieve cart!"
+        redirect_to root_path
     end
 
     protected
@@ -21,28 +27,16 @@ class ApplicationController < ActionController::Base
 
       #KIV
       def check_access(access_right)
-        if access_right == User.access_rights[:customer] && !User.isCustomer
+        if access_right == User.access_rights[:customer] && !User.isCustomer(current_user)
           flash[:error] = "Customers only!"
           redirect_to root_path
-        elsif access_right == User.access_rights[:manager] && User.isCustomer
+        elsif access_right == User.access_rights[:manager] && User.isCustomer(current_user)
           flash[:error] = "Managers only!"
           redirect_to root_path
         end
         rescue NoUserLoggedInException
           flash[:error] = "Please login first!"
           redirect_to "/users/sign_in"
-      end
-
-    private 
-
-      # create a new cart for user if the user is not associated with a cart 
-      # retrieve associated cart from user
-      def retrieve_or_create_cart
-        if Cart.find_by_user_id(User.current_user[:id]).nil?
-          Cart.current_cart = Cart.add_new_cart_to_user(User.current_user[:id]) 
-        else
-          Cart.current_cart = Cart.find_by_user_id(User.current_user[:id])
-        end
       end
 
 end

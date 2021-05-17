@@ -1,11 +1,12 @@
 class SaleTransactionsController < ApplicationController
+  
   before_action :set_sale_transaction, only: %i[ show ]
   before_action only: [:index] do 
     self.check_access(User.access_rights[:customer])
   end
 
   def index
-    @sale_transactions = SaleTransaction.includes(:sale_transaction_line_items).where(:user_id => User.current_user.id)
+    @sale_transactions = current_user.sale_transactions
   end
 
   def create
@@ -20,7 +21,7 @@ class SaleTransactionsController < ApplicationController
       @sale_transaction[:total_amount] = 0
       @sale_transaction[:total_quantity] = 0
       @sale_transaction[:transaction_date] = Date.today
-      @sale_transaction.user = User.current_user
+      @sale_transaction.user = current_user
 
       for item in line_items do
         @sale_transaction[:total_line_item] += 1
@@ -40,7 +41,7 @@ class SaleTransactionsController < ApplicationController
     respond_to do |format|
       if transaction_created == true
         #send email
-        OrderMailer.received(line_items).deliver_now
+        OrderMailer.received(line_items, current_user).deliver_now
 
         format.html { redirect_to "/my_transactions", notice: "Sale transaction was successfully created." }
         format.json { render :show, status: :created, location: @sale_transaction }

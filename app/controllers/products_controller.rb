@@ -6,13 +6,7 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    #only show products not deleted
     @products = Product.where(is_deleted: false).order(:id)
-    @user = nil
-    #assign user to current user only if the user is manager
-    if User.current_user.present? && User.current_user[:access_right_enum] == 2
-      @user = User.current_user
-    end
   end
 
   # GET /products/new
@@ -28,11 +22,10 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
       @product = Product.new(product_params)
-      @user = User.current_user
 
       respond_to do |format|
         if @product.save
-          ProductsStaffs.create_log(User.current_user[:id], @product[:id], "create")        
+          create_log(@product, "create")        
           format.html { redirect_to products_url, notice: "Product was successfully created." }
           format.js
           format.json { render :show, status: :created, location: @product }
@@ -46,11 +39,10 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-    @user = User.current_user
-
     respond_to do |format|
       if @product.update(product_params)
-        ProductsStaffs.create_log(User.current_user[:id], @product[:id], "update")        
+        create_log(@product, "update")        
+        
         @products = Product.where(is_deleted: false).order(:id)
         format.html { redirect_to products_url, notice: "Product was successfully updated." }
         format.js
@@ -65,20 +57,23 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    @user = User.current_user
     #if product is in cart, cannot delete
     if @product.is_product_referenced_by_line_items
       flash[:error] = "Product is in use!"
+
       respond_to do |format|
         format.html { redirect_to products_url}
         format.json { head :no_content }
       end
+      
       return
     else 
       # soft delete
       @product.update(is_deleted: true)
-      ProductsStaffs.create_log(User.current_user[:id], @product[:id], "delete")        
+      create_log(@product, "delete")     
+
       @products = Product.where(is_deleted: false).order(:id)
+
       respond_to do |format|
         format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
         format.js
@@ -96,6 +91,15 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:product_id, :name, :description, :unit_price)
+    end
+
+    def create_log(product, operation)
+        log = ProductsStaffs.new
+        log.product= product
+        log.user = current_user
+        log[:log_time] = Date.today
+        log[:operation] = operation
+        log.save!
     end
   
 end

@@ -35,7 +35,7 @@ class CartsController < ApplicationController
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
-    if Cart.current_cart.user_id == User.current_user[:id]
+    if Cart.current_cart.user_id == current_user[:id]
       # remove all sale transaction line items associated with the cart
       ids_to_delete = []
       for item in Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)

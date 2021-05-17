@@ -6,10 +6,10 @@ class OrderMailer < ApplicationMailer
   #
   #   en.order_mailer.received.subject
   #
-  def received(line_items)
+  def received(line_items, user)
     @sale_transaction_line_items = line_items
-    @user = User.current_user
-    mail to: User.current_user[:email], subject: 'Order confirmation'  do |format|
+    @user = user
+    mail to: @user[:email], subject: 'Order confirmation'  do |format|
       format.text
     end
   end

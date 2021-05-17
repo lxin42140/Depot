@@ -4,7 +4,7 @@
     <td><%= sanitize(product.description) %></td>
     <td><%= number_to_currency(product.unit_price) %></td>
     <td style="display:flex; flex-direction:column; align-items:center; font-size: 15px;">
-        <% if @user.present? %>
+        <% if user_signed_in? == true && current_user.access_right_enum == 2 %>
             <span style="display:flex; flex-direction: row; align-items: center;">
                 <%= fa_icon "plus" %>&nbsp;
                 <%= link_to 'Add New Product', new_product_path, remote: true %> &nbsp; 

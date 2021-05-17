@@ -8,7 +8,6 @@ class SaleTransactionLineItemsController < ApplicationController
   end
   skip_before_action :verify_authenticity_token
 
-  # POST /sale_transaction_line_items or /sale_transaction_line_items.json
   def create
     product = Product.find(params[:product_id])
     @sale_transaction_line_item = Cart.current_cart.add_product(product)
@@ -25,7 +24,6 @@ class SaleTransactionLineItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
   def update
     if params[:increment]
       @sale_transaction_line_item.quantity += 1

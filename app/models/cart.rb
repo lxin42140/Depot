@@ -28,11 +28,4 @@ class Cart < ApplicationRecord
         sale_transaction_line_items.to_a.sum { |item| item.total_price }
     end
 
-    def self.add_new_cart_to_user(user_id)
-        @cart = Cart.new
-        @cart[:user_id] = user_id
-        @cart.save
-        return @cart
-    end
-
 end
