@@ -8,6 +8,10 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "packs/bootstrap"
+import $ from 'jquery';
+global.$ = jQuery;
+
+require('datatables.net-bs4')
 
 Rails.start()
 Turbolinks.start()
