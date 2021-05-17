@@ -38,7 +38,7 @@ class CartsController < ApplicationController
     if Cart.current_cart.user_id == User.current_user[:id]
       # remove all sale transaction line items associated with the cart
       ids_to_delete = []
-      for item in Cart.current_cart.sale_transaction_line_items
+      for item in Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)
         ids_to_delete << item.id
       end
       # destroy_all will delete all associated relations
