@@ -1,5 +1,6 @@
 @startuml
 
+
 class User {
     id
     first_name
@@ -35,10 +36,15 @@ class SaleTransactionLineItem {
     is_sold
 }
 
+/'
 class ProductsStaffs {
     id,
     operation
 }
+
+Staff "staff" ||--o{ "update_logs" ProductsStaffs
+ProductsStaffs "update_logs" }o--|| "product" Product
+'/
 
 class Cart {
     id
@@ -52,10 +58,6 @@ Cart "cart" ||--o{ "sale_transaction_line_items" SaleTransactionLineItem
 SaleTransactionLineItem "sale_transaction_line_items" }|--|| "sale_transaction" SaleTransaction
 SaleTransactionLineItem -up-|| "product" Product
 SaleTransaction "sale_transactions" }o--|| "customer" Customer
-Staff "staff" ||--o{ "update_logs" ProductsStaffs
-ProductsStaffs "update_logs" }o--|| "product" Product
+Staff "staffs" }o--o{ "updated_products" Product
 
-/'
-Staff "staffs" }o--o{ "updatedproducts" Product
-'/
 @enduml
