@@ -1,48 +1,16 @@
 <br/>
 
-<h3>View All Products</h3>
+<h1 class="display-4" style="text-align:center" >View All Products</h1>
+<br/>
 
-<div id="new-product">
+<div class="container">
+  <% @products.each_slice(3) do |(p1, p2, p3)| %>
+    <div class="row">
+      <div class="col-sm"><%= render p1 if p1 %></div>
+      <div class="col-sm"><%= render p2 if p2 %></div>
+      <div class="col-sm"><%= render p3 if p3 %></div>
+    </div>
+  <% end %>
 </div>
 
-<div id="edit-product">
-</div>
 
-<div id="errors">
-</div>
-
-<div style="
-  width: 100%;
-  margin: 0 auto;
-">
-  <table id="table_products" class="display table table-striped table-bordered" role="datatable" style="width:100%">
-    
-    <thead>
-      <tr>
-        <th>Images</th>
-        <th>Product</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Unit price</th>
-        <th style="text-align: center">Action</th>
-      </tr>
-    </thead>
-
-    <tbody id="products">
-      <%= render @products %>
-    </tbody>
-
-  </table>
-</div>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#table_products').DataTable({
-      fixedColumns: { leftColumns: 1 },
-      scrollX: true,
-      scrollCollapse: true,
-      scrollY: "500px",
-      paging: false
-    });
-  });
-</script>

@@ -1,36 +1,16 @@
-<tr>
-    <td>
+<div class="card" style="width: 20rem;">
+    <div class="card-img-top">
         <% if product.images.first.present? %>
-            <div style="width:300px;height:300px ">
-                <%= image_tag product.images.first, style:'width:100%;height:auto;' %>
-                <%= link_to "Download", rails_blob_path(product.images.first, disposition: 'attachment') %>
-            </div>
-        <% end %>
-    </td>
-    <td><%= product.id %></td>
-    <td><%= sanitize(product.name) %></td>
-    <td><%= sanitize(product.description) %></td>
-    <td><%= number_to_currency(product.unit_price) %></td>
-    <td style="display:flex; flex-direction:column; align-items:center; font-size: 15px;">
-        <% if user_signed_in? == true && current_user.access_right_enum == 2 %>
-            <span style="display:flex; flex-direction: row; align-items: center;">
-                <%= fa_icon "plus" %>&nbsp;
-                <%= link_to 'Add New Product', new_product_path, remote: true %> &nbsp; 
-            </span>
-            <span style="display:flex; flex-direction: row; align-items: center;">
-                <%= fa_icon "pencil" %>&nbsp;
-                <%= link_to 'Edit Product', edit_product_path(product), remote: true %> &nbsp; 
-            </span>
-            <span style="display:flex; flex-direction: row; align-items: center;">
-                <%= fa_icon "trash" %>&nbsp;
-                <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
-            </span>
+            <%= image_tag product.images.first, class: "card-img-top" %>
+            <%= link_to "Download", rails_blob_path(product.images.first, disposition: 'attachment') %>
         <% else %>
-            <span style="display:flex; flex-direction: row; align-items: center;">
-                <%= fa_icon "shopping-cart" %>&nbsp;
-                <%= link_to 'Add to Cart', sale_transaction_line_items_path(product_id: product), method: :post%>
-                <%# button_to 'Add to Cart', sale_transaction_line_items_path(product_id: product) %>
-            </span>
+            <img class="card-img-top" src="https://picsum.photos/286/180" alt="Card image cap">
         <% end %>
-    </td>
-</tr>
+    </div>
+    <div class="card-body">
+    <h5 class="card-title"><%= product.name %></h5>
+    <p class="card-text"><%= number_to_currency(number_with_delimiter(product.unit_price, delimiter: ",")) %></p>
+    <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-primary' %>
+    </div>
+</div>
+<br/>

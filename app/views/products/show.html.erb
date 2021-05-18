@@ -1,26 +1,10 @@
-<table class="table">
-  <tr>
-    <th scope="col">Product ID</th>
-    <td><%= @product.id %></td>
-  </tr>
-  <tr>
-    <th scope="col">Product Name</th>
-    <td><%= @product.name %></td>
-  </tr>
-  <tr>
-    <th scope="col">Description</th>
-    <td><%= @product.description %></td>
-  </tr>
-  <tr>
-    <th scope="col">Unit Price</th>
-    <td><%= @product.unit_price %></td>
-  </tr>
-  <tr>
-    <td colspan=2 style="text-align: center">
-      <%= link_to 'Edit', edit_product_path(@product) %>
-      &nbsp
-      <%= link_to 'Back', products_path %>
-    </td>
-  </tr>
-</table>
+<div id="new-product">
+</div>
+
+<div id="edit-product">
+</div>
+
+<div id="errors">
+</div>
+
 
