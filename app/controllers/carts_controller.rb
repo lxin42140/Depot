@@ -10,15 +10,7 @@ class CartsController < ApplicationController
   #GET /carts or /carts.json
   def index
     @cart = Cart.current_cart
-    # @cart = Cart.new
-    # @cart.sale_transaction_line_items = []
-    # # add line items that are not marked as sold from current cart
-    # for line_item in Cart.current_cart.sale_transaction_line_items
-    #   if line_item[:is_sold] == false 
-    #     @cart.sale_transaction_line_items << line_item
-    #   end 
-    # end
-    # @cart[:id] = Cart.current_cart.id
+    @sale_transaction_line_items = Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)
   end
 
   # PATCH/PUT /carts/1 or /carts/1.json
@@ -37,13 +29,7 @@ class CartsController < ApplicationController
   # DELETE /carts/1 or /carts/1.json
   def destroy
     if Cart.current_cart.user_id ==  current_user[:id]
-      # remove all sale transaction line items associated with the cart
-      ids_to_delete = []
-      for item in Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)
-        ids_to_delete << item.id
-      end
-      # destroy_all will delete all associated relations
-      SaleTransactionLineItem.where(:id => ids_to_delete).delete_all
+      Cart.current_cart.sale_transaction_line_items.where(:is_sold => false).delete_all
     end
 
     respond_to do |format|
@@ -67,32 +53,3 @@ class CartsController < ApplicationController
     end
 
 end
-
- # GET /carts/1 or /carts/1.json
-  # def show
-  #     Cart.current_cart
-  # end
-
-# GET /carts/new
-  # def new
-  #   @cart = Cart.new
-  # end
-
-  # GET /carts/1/edit
-  # def edit
-  # end
-
-  # POST /carts or /carts.json
-  # def create()
-  #   @cart = Cart.new(cart_params)
-
-  #   respond_to do |format|
-  #     if @cart.save
-  #       format.html { redirect_to @cart, notice: "Cart was successfully created." }
-  #       format.json { render :show, status: :created, location: @cart }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @cart.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end

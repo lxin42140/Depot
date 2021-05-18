@@ -42,8 +42,9 @@ class SaleTransactionLineItemsController < ApplicationController
         format.html { redirect_to "/my_cart", status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }
       else
-        # @cart = Cart.current_cart
-        # @cart.sale_transaction_line_items = Cart.current_cart.sale_transaction_line_items.select{|item| item.is_sold == false}
+        @cart = Cart.current_cart
+        @sale_transaction_line_items = Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)
+        
         format.html { redirect_to "/my_cart", notice: @message }
         format.js
         format.json { render :show, status: :ok, location: @sale_transaction_line_item }
@@ -63,32 +64,3 @@ class SaleTransactionLineItemsController < ApplicationController
     end
 
 end
-
-  # GET /sale_transaction_line_items or /sale_transaction_line_items.json
-  # def index    
-  #   @sale_transaction_line_items = SaleTransactionLineItem.all
-  # end
-
-  # GET /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
-  # def show
-  # end
-
-  # # GET /sale_transaction_line_items/new
-  # def new
-  #   @sale_transaction_line_item = SaleTransactionLineItem.new
-  # end
-
-  # GET /sale_transaction_line_items/1/edit
-  # def edit
-  # end
-  # DELETE /sale_transaction_line_items/1 or /sale_transaction_line_items/1.json
-  # def destroy
-  #   @sale_transaction_line_item.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to sale_transaction_line_items_url, notice: "Sale transaction line item was successfully destroyed." }
-  #     format.json { head :no_content }
-  #   end
-  # end
-
-
-
