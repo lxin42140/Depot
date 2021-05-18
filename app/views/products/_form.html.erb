@@ -18,12 +18,12 @@
 
 <div class="form-group">
   <%= form.label :model %><br/>
-  <%= form.text_field  :model, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Model name"%>
+  <%= form.text_field  :model, required: true, class: "form-control", placeholder: "Model name"%>
 </div>
 
 <div class="form-group">
   <%= form.label :delivery %><br/>
-  <%= form.text_field  :delivery, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Delivery address"%>
+  <%= form.text_field  :delivery, required: true, class: "form-control", placeholder: "Delivery address"%>
 </div>
 
 <div class="form-group">
@@ -38,7 +38,13 @@
 
 <div class="form-group">
   <%= form.label :category %><br/>
-  <%= form.text_field  :category, required: true, in: 1.0..10000.0, class: "form-control"%>
+  <select name="category[]" multiple="multiple" style="width:100%">
+    <option value="Gameboy">Gameboy</option>
+    <option value="T-shirt">T-shirt</option>
+    <option value="Jewellery">Jewellery</option>
+    <option value="Jeans">Jeans</option>
+  </select>
+  <small class="form-text text-muted">Select at least one.</small>
 </div>
 
 <div class="form-group">

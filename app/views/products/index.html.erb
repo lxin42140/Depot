@@ -14,13 +14,16 @@
     </div>
   <br/>
   <% end %>
-  <% @products.each_slice(3) do |(p1, p2, p3)| %>
-    <div class="row">
-      <div class="col-sm"><%= render p1 if p1 %></div>
-      <div class="col-sm"><%= render p2 if p2 %></div>
-      <div class="col-sm"><%= render p3 if p3 %></div>
-    </div>
-  <% end %>
+  <div id="products">
+    <% @products.each_slice(3) do |(p1, p2, p3)| %>
+      <div class="row">
+        <div class="col-sm"><%= render p1 if p1 %></div>
+        <div class="col-sm"><%= render p2 if p2 %></div>
+        <div class="col-sm"><%= render p3 if p3 %></div>
+      </div>
+    <% end %>
+  </div>
+
 </div>
 
 <!-- Modal -->
@@ -38,4 +41,3 @@
     </div>
   </div>
 </div>
-
