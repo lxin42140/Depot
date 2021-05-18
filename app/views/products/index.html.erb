@@ -3,7 +3,18 @@
 <h1 class="display-4" style="text-align:center" >View All Products</h1>
 <br/>
 
+<span style="display:flex; flex-direction: row; align-items: center;">
+</span>
+
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <%= link_to (new_product_path), remote: true, class: 'btn btn-primary', style: "color: white; margin-left:40%;" do %>
+        <%= fa_icon "plus" %> Create New Product
+      <% end %>
+    </div>
+  </div>
+  <br/>
   <% @products.each_slice(3) do |(p1, p2, p3)| %>
     <div class="row">
       <div class="col-sm"><%= render p1 if p1 %></div>
@@ -13,4 +24,20 @@
   <% end %>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="modalProduct" tabindex="-1" role="dialog" aria-labelledby="modalProductTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create New Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modalBody" class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
 

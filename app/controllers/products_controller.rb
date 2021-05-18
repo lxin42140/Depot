@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
       respond_to do |format|
         if @product.save
           create_log(@product, "create")        
-          format.html { redirect_to products_url, notice: "Product was successfully created." }
+          format.html { redirect_to root_path, notice: "Product was successfully created." }
           format.js
           format.json { render :show, status: :created, location: @product }
         else
@@ -46,14 +46,11 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        create_log(@product, "update")        
-        
-        @products = Product.where(is_deleted: false).order(:id)
-        format.html { redirect_to products_url, notice: "Product was successfully updated." }
-        format.js
+        create_log(@product, "update")
+        format.html { redirect_to @product, notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @product }
       else
-        format.js { render :new } # to show form validation errors
+        flash[:error] = "Could not update product!"
         format.html { redirect_to products_url, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -77,11 +74,8 @@ class ProductsController < ApplicationController
       @product.update(is_deleted: true)
       create_log(@product, "delete")     
 
-      @products = Product.where(is_deleted: false).order(:id)
-
       respond_to do |format|
-        format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-        format.js
+        format.html { redirect_to root_path, notice: "Product was successfully destroyed." }
         format.json { head :no_content }
       end
     end
@@ -95,7 +89,7 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:product_id, :name, :description, :unit_price, :targetted_customers, images: [])
+      params.require(:product).permit(:product_id, :name, :description, :unit_price, :category, :model, :delivery, images: [])
     end
 
     def create_log(product, operation)

@@ -25,6 +25,10 @@ body > td {
   margin: 8px !important;
 }
 
+.borderless td, .borderless th {
+  border: none;
+}
+
 @media all and (max-width: 800px) {
   #columns {
     flex-direction: column-reverse;

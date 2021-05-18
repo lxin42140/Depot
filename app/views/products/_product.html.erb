@@ -1,16 +1,15 @@
-<div class="card" style="width: 20rem;">
+<div class="card text-center" style="width: 20rem;">
     <div class="card-img-top">
         <% if product.images.first.present? %>
-            <%= image_tag product.images.first, class: "card-img-top" %>
-            <%= link_to "Download", rails_blob_path(product.images.first, disposition: 'attachment') %>
+            <%= image_tag product.thumbnail(product.images.first), class: "card-img-top" %>
         <% else %>
-            <img class="card-img-top" src="https://picsum.photos/286/180" alt="Card image cap">
+            <img class="card-img-top" src="https://picsum.photos/300/200" alt="Card image cap">
         <% end %>
     </div>
     <div class="card-body">
     <h5 class="card-title"><%= product.name %></h5>
     <p class="card-text"><%= number_to_currency(number_with_delimiter(product.unit_price, delimiter: ",")) %></p>
-    <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-primary' %>
+    <%= link_to 'View details', product, method: :get, class: 'btn btn-primary' %>
     </div>
 </div>
 <br/>

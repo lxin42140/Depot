@@ -17,6 +17,21 @@
 </div>
 
 <div class="field">
+  <%= form.label :category %><br/>
+  <%= form.text_field  :category, required: true, in: 1.0..10000.0 %>
+</div>
+
+<div class="field">
+  <%= form.label :model %><br/>
+  <%= form.text_field  :model, required: true, in: 1.0..10000.0 %>
+</div>
+
+<div class="field">
+  <%= form.label :delivery %><br/>
+  <%= form.text_field  :delivery, required: true, in: 1.0..10000.0 %>
+</div>
+
+<div class="field">
   <%= form.label :description %><br/>
   <%= form.text_area :description, required: true %>
 </div>
@@ -24,11 +39,6 @@
 <div class="field">
   <%= form.label :unit_price %><br/>
   <%= form.number_field  :unit_price, required: true, in: 1.0..10000.0 %>
-</div>
-
-<div class="field">
-  <%= form.label :targetted_customers %><br/>
-  <%= form.text_area :targetted_customers, required: true%>
 </div>
 
 <div class="field">

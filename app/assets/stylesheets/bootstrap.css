@@ -6049,6 +6049,23 @@ button.close {
   color: #fff;
   text-align: center;
 }
+/*
+=====================================================PRODUCT SHOW PAGE CAROUSEL===========================================
+*/ 
+.carousel-item,
+.carousel-inner,
+.carousel-inner img {
+  height: 100%;
+  width: auto;
+}
+
+.carousel {
+  height: 600px;
+}
+
+.carousel-item {
+  text-align: center;
+}
 
 .align-baseline {
   vertical-align: baseline !important;
