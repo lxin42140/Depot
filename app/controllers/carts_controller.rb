@@ -9,15 +9,16 @@ class CartsController < ApplicationController
 
   #GET /carts or /carts.json
   def index
-    @cart = Cart.new
-    @cart.sale_transaction_line_items = []
-    # add line items that are not marked as sold from current cart
-    for line_item in Cart.current_cart.sale_transaction_line_items
-      if line_item[:is_sold] == false 
-        @cart.sale_transaction_line_items << line_item
-      end 
-    end
-    @cart[:id] = Cart.current_cart.id
+    @cart = Cart.current_cart
+    # @cart = Cart.new
+    # @cart.sale_transaction_line_items = []
+    # # add line items that are not marked as sold from current cart
+    # for line_item in Cart.current_cart.sale_transaction_line_items
+    #   if line_item[:is_sold] == false 
+    #     @cart.sale_transaction_line_items << line_item
+    #   end 
+    # end
+    # @cart[:id] = Cart.current_cart.id
   end
 
   # PATCH/PUT /carts/1 or /carts/1.json
@@ -35,7 +36,7 @@ class CartsController < ApplicationController
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
-    if Cart.current_cart.user_id == current_user[:id]
+    if Cart.current_cart.user_id ==  current_user[:id]
       # remove all sale transaction line items associated with the cart
       ids_to_delete = []
       for item in Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)

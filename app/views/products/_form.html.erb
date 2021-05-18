@@ -27,6 +27,11 @@
 </div>
 
 <div class="field">
+  <%= form.label :targetted_customers %><br/>
+  <%= form.text_area :targetted_customers, required: true%>
+</div>
+
+<div class="field">
   <%= form.label :images %><br/>
   <%= form.file_field :images, multiple: true %>
 </div>

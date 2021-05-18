@@ -6,7 +6,12 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.where(is_deleted: false).order(:id)
+    @products = Product.where(is_deleted: false)
+  end
+
+  # GET /products/1 or /products/1.json
+  def show
+    @product
   end
 
   # GET /products/new
@@ -90,7 +95,7 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:product_id, :name, :description, :unit_price, images: [])
+      params.require(:product).permit(:product_id, :name, :description, :unit_price, :targetted_customers, images: [])
     end
 
     def create_log(product, operation)
@@ -103,7 +108,3 @@ class ProductsController < ApplicationController
     end
   
 end
-
-# GET /products/1 or /products/1.json
-# def show
-# end

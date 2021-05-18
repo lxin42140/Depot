@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_112252) do
+ActiveRecord::Schema.define(version: 2021_05_18_012830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(version: 2021_05_17_112252) do
     t.integer "user_id", null: false
   end
 
+  create_table "product_parts", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_parts_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -56,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_05_17_112252) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_deleted", default: false, null: false
+    t.string "targetted_customers"
   end
 
   create_table "products_staffs", id: :bigint, default: -> { "nextval('staff_logs_id_seq'::regclass)" }, force: :cascade do |t|
@@ -107,6 +116,7 @@ ActiveRecord::Schema.define(version: 2021_05_17_112252) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "carts", "users", name: "carts_user_id_fkey", on_delete: :cascade
+  add_foreign_key "product_parts", "products"
   add_foreign_key "products_staffs", "products", name: "staff_logs_product_id_fkey"
   add_foreign_key "products_staffs", "users", name: "staff_logs_staff_id_fkey"
   add_foreign_key "sale_transaction_line_items", "carts", name: "sale_transaction_line_items_cart_id_fkey", on_delete: :cascade

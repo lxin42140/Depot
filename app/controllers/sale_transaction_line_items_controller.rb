@@ -33,9 +33,7 @@ class SaleTransactionLineItemsController < ApplicationController
 
     respond_to do |format|
       updated = false
-      if @sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete
-          updated = true
-      elsif @sale_transaction_line_item.save
+      if (@sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete) || @sale_transaction_line_item.save
         updated = true
       end
 
@@ -44,8 +42,8 @@ class SaleTransactionLineItemsController < ApplicationController
         format.html { redirect_to "/my_cart", status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }
       else
-        @cart = Cart.new
-        @cart.sale_transaction_line_items = SaleTransactionLineItem.where("cart_id = ? and is_sold = false", Cart.current_cart.id)
+        # @cart = Cart.current_cart
+        # @cart.sale_transaction_line_items = Cart.current_cart.sale_transaction_line_items.select{|item| item.is_sold == false}
         format.html { redirect_to "/my_cart", notice: @message }
         format.js
         format.json { render :show, status: :ok, location: @sale_transaction_line_item }
