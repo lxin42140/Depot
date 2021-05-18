@@ -11,42 +11,41 @@
     </div>
   <% end %>
 
-<div class="field">
+<div class="form-group">
   <%= form.label :name %><br/>
-  <%= form.text_field :name, required: true%>
+  <%= form.text_field :name, required: true, class: "form-control", placeholder: "Product name"%>
 </div>
 
-<div class="field">
-  <%= form.label :category %><br/>
-  <%= form.text_field  :category, required: true, in: 1.0..10000.0 %>
-</div>
-
-<div class="field">
+<div class="form-group">
   <%= form.label :model %><br/>
-  <%= form.text_field  :model, required: true, in: 1.0..10000.0 %>
+  <%= form.text_field  :model, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Model name"%>
 </div>
 
-<div class="field">
+<div class="form-group">
   <%= form.label :delivery %><br/>
-  <%= form.text_field  :delivery, required: true, in: 1.0..10000.0 %>
+  <%= form.text_field  :delivery, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Delivery address"%>
 </div>
 
-<div class="field">
+<div class="form-group">
   <%= form.label :description %><br/>
-  <%= form.text_area :description, required: true %>
+  <%= form.text_area :description, required: true, class: "form-control", placeholder: "Product description"%>
 </div>
 
-<div class="field">
+<div class="form-group">
   <%= form.label :unit_price %><br/>
-  <%= form.number_field  :unit_price, required: true, in: 1.0..10000.0 %>
+  <%= form.number_field  :unit_price, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Product price"%>
 </div>
 
-<div class="field">
+<div class="form-group">
+  <%= form.label :category %><br/>
+  <%= form.text_field  :category, required: true, in: 1.0..10000.0, class: "form-control"%>
+</div>
+
+<div class="form-group">
   <%= form.label :images %><br/>
-  <%= form.file_field :images, multiple: true %>
+  <%= form.file_field :images, multiple: true, class: "form-control-file"%>
 </div>
 
-<%= form.submit %>
-<button type="button" onclick="$('#new-product form').remove();$('#edit-product form').remove();">Close</button>
+<%= form.submit class: "btn btn-primary mb-2"%>
 
 <% end %>

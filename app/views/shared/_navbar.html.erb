@@ -6,46 +6,40 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active" style="font-size: 20px;">
-        <span style="display:flex; flex-direction: row; align-items: center;">
-          <%= fa_icon "home" %>
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </span>
+      <li class="nav-item" style="font-size: 20px;">
+        <%= link_to (root_path),  method: :get, class: 'nav-link' do %>
+          <%= fa_icon "home" %> Home
+        <% end %>
       </li>
       
       <% if user_signed_in? %>
         <% if current_user.access_right_enum == 1 %>
           <li class="nav-item" style="font-size: 20px;">
-            <span style="display:flex; flex-direction: row; align-items: center;">
-              <%= fa_icon "shopping-cart" %>
-              <%= link_to 'My cart', carts_url, method: :get, class: 'nav-link' %>
-            </span>
+            <%= link_to (carts_url), method: :get, class: 'nav-link' do %>
+              <%= fa_icon "shopping-cart" %> My Cart
+            <% end %>
           </li>
           <li class="nav-item" style="font-size: 20px;">
-            <span style="display:flex; flex-direction: row; align-items: center;">
-              <%= fa_icon "list" %>
-              <%= link_to 'My transaction', sale_transactions_url,  method: :get, class: 'nav-link' %>
-            </span>
+            <%= link_to (sale_transactions_url),  method: :get, class: 'nav-link' do %>
+              <%= fa_icon "list" %> My Transactions
+            <% end %>
           </li>
         <% end%>
         <li class="nav-item" style="font-size: 20px;">
-            <span style="display:flex; flex-direction: row; align-items: center;">
-              <%= fa_icon "sign-out" %>
-              <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-            </span>
+          <%= link_to (destroy_user_session_path), method: :delete, class: 'nav-link' do %>
+            <%= fa_icon "sign-out" %> Sign Out
+          <% end %>
         </li>
       <% else %>
         <li class="nav-item" style="font-size: 20px;">
-            <span style="display:flex; flex-direction: row; align-items: center;">
-              <%= fa_icon "user-o" %>
-              <%= link_to 'Register', new_user_registration_path, class: 'nav-link' %>
-            </span>
+          <%= link_to (new_user_registration_path), class: 'nav-link' do %>
+            <%= fa_icon "user-o" %> Register
+          <% end %>
         </li>
         <li class="nav-item" style="font-size: 20px;">
-            <span style="display:flex; flex-direction: row; align-items: center;">
-              <%= fa_icon "sign-in" %>
-              <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
-            </span>
+          <%= link_to (new_user_session_path), class: 'nav-link' do %>
+            <%= fa_icon "sign-in" %> Sign in
+          <% end %>
         </li>
       <% end %>
     </ul>
