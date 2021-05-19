@@ -1,44 +1,51 @@
 <h1 class="display-4" style="text-align:center" >My Sale Transactions</h1>
 <br/>
 
-<div class="row justify-content-center">
-  <div class="canvasContainer" style="width: 500px;">
-      <canvas id="transactionChart"></canvas>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="canvasContainer" style="width: 500px;">
+        <canvas id="transactionChart"></canvas>
+    </div>
+  </div>
+  <br/>
+  <br/>
+
+  <div class="row justify-content-center">
+    <table id="table_transactions" class="display table table-striped table-bordered" role="datatable" style="width:100%">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Total line item</th>
+          <th>Total quantity</th>
+          <th>Total amount</th>
+          <th>Transaction date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @sale_transactions.each do |sale_transaction| %>
+          <tr>
+            <td><%= sale_transaction.id %></td>
+            <td><%= sale_transaction.total_line_item %></td>
+            <td><%= sale_transaction.total_quantity %></td>
+            <td><%= number_to_currency(sale_transaction.total_amount) %></td>
+            <td><%= sale_transaction.transaction_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<br/>
-<br/>
 
-<table id="table_transactions" class="display table table-striped table-bordered" role="datatable" style="width:100%">
-  <thead>
-    <tr>
-      <th>Transaction ID</th>
-      <th>Total line item</th>
-      <th>Total quantity</th>
-      <th>Total amount</th>
-      <th>Transaction date</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @sale_transactions.each do |sale_transaction| %>
-      <tr>
-        <td><%= sale_transaction.id %></td>
-        <td><%= sale_transaction.total_line_item %></td>
-        <td><%= sale_transaction.total_quantity %></td>
-        <td><%= number_to_currency(sale_transaction.total_amount) %></td>
-        <td><%= sale_transaction.transaction_date %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <script type="text/javascript">
   $(document).ready(function() {
     $('#table_transactions').DataTable({
-      //auto sort by transaction date
       order: [[ 4, 'desc' ]],
+      paging: false,
+      bInfo: false
     });
 
     var dateArray = [];
