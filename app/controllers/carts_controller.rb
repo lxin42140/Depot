@@ -28,12 +28,11 @@ class CartsController < ApplicationController
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
-    if Cart.current_cart.user_id ==  current_user[:id]
-      Cart.current_cart.sale_transaction_line_items.where(:is_sold => false).delete_all
-    end
+    Cart.current_cart.sale_transaction_line_items.where(:is_sold => false).delete_all
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Your cart is currently empty' }
+      format.js
       format.json { head :no_content }
     end
   end

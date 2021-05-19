@@ -55,7 +55,7 @@
       </div>
       <div style="border-bottom: 1px solid gray;"></div>
       <br/>
-      <div style="display:flex; flex-direction: row; align-items: center;">
+      <div class="text-center">
         <% if user_signed_in? == true && current_user.access_right_enum == 2 %>
           <%= link_to (edit_product_path(@product)), remote: true, class: 'btn btn-primary', style: "color: white" do %>
             <%= fa_icon "pencil" %> Edit Product

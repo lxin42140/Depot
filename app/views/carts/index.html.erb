@@ -3,22 +3,25 @@
 <h3 style="text-align:center;padding-bottom: 2%;">My Cart</h3>
 
 <div class="container">
-  <div class="row-cols-1">
-    <div id="cart" style="display: flex !important; flex-direction: row !important; flex-flow: wrap;">
-      <%= render @sale_transaction_line_items %>
+  <div class="row">
+    <div class="col align-self-center">
+      <div id="cart" style="display: flex !important; flex-direction: row !important; flex-flow: wrap">
+          <%= render @sale_transaction_line_items %>
+      </div>
     </div>
   </div>
-  <div class="row-cols-1">
-    <div style="display:flex; flex-direction:column; align-items:center;padding-top: 5%;">
-      <p id="total-price" style="font-size: 20px;">
-        <%= fa_icon "shopping-cart" %>&nbsp; Cart Total: <%= number_to_currency(@cart.total_price) %>
-      </p>
-
-      <div style="display:flex; flex-direction:row; align-items:center; padding-top: 10px;">
-        <% if @cart.sale_transaction_line_items.present? %>
-          <%= button_to 'Empty cart', "/my_cart/#{@cart.id}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> &nbsp;&nbsp;
-          <%= button_to "Check out", sale_transactions_path, method: :post, class: "btn btn-success" %>
-        <% end %>
+  <div class="row">
+    <div class="col align-self-center">
+      <div style="display:flex; flex-direction:column; align-items:center;padding-top: 5%;">
+        <p id="total-price" style="font-size: 20px;">
+          <%= fa_icon "shopping-cart" %>&nbsp; Cart Total: <%= number_to_currency(@cart.total_price) %>
+        </p>
+        <div id="cartButtons" style="display:flex; flex-direction:row; align-items:center; padding-top: 10px;">
+          <% if @cart.sale_transaction_line_items.present? %>
+            <%= button_to 'Empty cart', "/my_cart/#{@cart.id}", method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> &nbsp;&nbsp;
+            <%= button_to "Check out", sale_transactions_path, method: :post, class: "btn btn-success" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

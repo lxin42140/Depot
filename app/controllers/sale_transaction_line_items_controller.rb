@@ -25,17 +25,17 @@ class SaleTransactionLineItemsController < ApplicationController
   end
 
   def update
-    @deleted = false
-    
     if params[:increment]
       @sale_transaction_line_item.quantity += 1
       @sale_transaction_line_item.subtotal += @sale_transaction_line_item.product.unit_price
     else 
       @sale_transaction_line_item.quantity -= 1
       @sale_transaction_line_item.subtotal -= @sale_transaction_line_item.product.unit_price
-      if @sale_transaction_line_item.quantity <= 0
-          @deleted = true
-      end
+    end
+
+    @deleted = false
+    if @sale_transaction_line_item.quantity <= 0
+      @deleted = true
     end
 
     respond_to do |format|

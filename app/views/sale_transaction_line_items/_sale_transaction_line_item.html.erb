@@ -8,11 +8,12 @@
             <% end %>
         </div>
         <div class="card-body">
-        <h5 id="quantityFor<%= sale_transaction_line_item.id %>" class="card-title">Quantity: <%= sale_transaction_line_item.quantity %></h5>
-        <p id="subtotalFor<%= sale_transaction_line_item.id %>" class="card-text">Sub-total: <%= number_to_currency(number_with_delimiter(sale_transaction_line_item.subtotal, delimiter: ",")) %></p>
-        <div style="display:flex; flex-direction:row; align-items:center;margin-left:10%;">
-            <%= button_to 'Increment', sale_transaction_line_item_path(sale_transaction_line_item.id), params: {:increment => true }, method: :put, remote: true, class: "btn btn-primary" %> &nbsp;
-            <%= button_to 'Decrement', sale_transaction_line_item_path(sale_transaction_line_item.id), params:{:decrement => true }, method: :put, remote: true, class: "btn btn-primary" %>
+            <h5 id="quantityFor<%= sale_transaction_line_item.id %>" class="card-title">Quantity: <%= sale_transaction_line_item.quantity %></h5>
+            <p id="subtotalFor<%= sale_transaction_line_item.id %>" class="card-text">Sub-total: <%= number_to_currency(number_with_delimiter(sale_transaction_line_item.subtotal, delimiter: ",")) %></p>
+            <div style="display:flex; flex-direction:row; align-items:center;margin-left:10%;">
+                <%= button_to 'Increment', sale_transaction_line_item_path(sale_transaction_line_item.id), params: {:increment => true }, method: :put, remote: true, class: "btn btn-primary" %> &nbsp;
+                <%= button_to 'Decrement', sale_transaction_line_item_path(sale_transaction_line_item.id), params:{:decrement => true }, method: :put, remote: true, class: "btn btn-primary" %>
+            </div>
         </div>
     </div>
     <br/>

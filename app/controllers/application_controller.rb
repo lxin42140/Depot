@@ -5,13 +5,15 @@ class ApplicationController < ActionController::Base
     before_action :set_current_cart
     
     def set_current_cart
+      cart = Cart.new
       if User.isCustomer(current_user) && current_user.cart.present? == false
-        cart = Cart.new
         cart.user = current_user
         cart.save!
         Cart.current_cart = cart
       elsif User.isCustomer(current_user)
-        Cart.current_cart = current_user.cart
+        cart.id = current_user.cart.id
+        cart.sale_transaction_line_items = current_user.cart.sale_transaction_line_items.where(:is_sold => false)
+        Cart.current_cart = cart
       end
       rescue NoUserLoggedInException
     end
