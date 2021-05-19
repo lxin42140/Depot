@@ -1,0 +1,25 @@
+<div class="card text-center">
+    <br/>
+    <h5 class="card-title">
+        <%= fa_icon "wrench"%>
+        <%= product_part_detail.product.name %>'s part: <%= product_part_detail.name %>
+    </h5>
+    <%= image_tag product_part_detail.product.show_image(product_part_detail.product.images.first), class: "card-img-top" %>
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">
+            <%= fa_icon "exclamation-triangle"%>
+            Expires in <%= (product_part_detail.date_expired - Date.today).to_i %> days (<%= product_part_detail.date_expired.strftime("%d/%m/%Y") %>)
+        </h6>
+        <p class="card-text">
+            <%= fa_icon "info"%>
+            <%= product_part_detail.description %>
+        </p>
+        <%= link_to (edit_product_part_path(product_part_detail)), remote: true, class: 'btn btn-primary', style: "color: white" do %>
+            <%= fa_icon "pencil" %> Edit Product Part
+        <% end %>
+        &nbsp;
+        <%= link_to (product_part_detail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', style: "color: white" do %>
+            <%= fa_icon "trash" %> Delete Product Part
+        <% end %>
+    </div>
+</div>

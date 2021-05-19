@@ -40,12 +40,14 @@ class ProductPartsController < ApplicationController
   end
 
   def update
+    @product_part.product = Product.find(params[:product_id])
     respond_to do |format|
       if @product_part.update(product_part_params)
         format.html { redirect_to @product_part, notice: "Product part was successfully updated." }
+        format.js
         format.json { render :show, status: :ok, location: @product_part }
       else
-        flash[:error] = "Could not update product part!"
+        format.js { render :new } # to show form validation errors
         format.html { redirect_to @product_part, status: :unprocessable_entity }
         format.json { render json: @product_part.errors, status: :unprocessable_entity }
       end
