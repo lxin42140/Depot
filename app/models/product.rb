@@ -8,7 +8,6 @@ class Product < ApplicationRecord
     validates :name, :description, :unit_price, :category, :model, :delivery, presence: true
     validates :unit_price, numericality: {greater_than_or_equal_to: 0.01}
     validate  :acceptable_images
-    validate  :product_parts_check
 
     def is_product_referenced_by_line_items
         if SaleTransactionLineItem.find_by_product_id(self.id).nil?
@@ -23,12 +22,6 @@ class Product < ApplicationRecord
         end
     end 
 
-    def product_parts_check
-        if product_parts.count <= 0
-            errors.add(:product_parts, "Product needs at least one part")
-        end
-    end
-    
     def thumbnail(image)
         return image.variant(resize: '300x200!').processed
     end

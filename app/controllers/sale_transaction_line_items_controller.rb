@@ -25,15 +25,22 @@ class SaleTransactionLineItemsController < ApplicationController
   end
 
   def update
+    @deleted = false
+    
     if params[:increment]
       @sale_transaction_line_item.quantity += 1
+      @sale_transaction_line_item.subtotal += @sale_transaction_line_item.product.unit_price
     else 
       @sale_transaction_line_item.quantity -= 1
+      @sale_transaction_line_item.subtotal -= @sale_transaction_line_item.product.unit_price
+      if @sale_transaction_line_item.quantity <= 0
+          @deleted = true
+      end
     end
 
     respond_to do |format|
       updated = false
-      if (@sale_transaction_line_item.quantity <= 0 && @sale_transaction_line_item.delete) || @sale_transaction_line_item.save
+      if (@deleted == true && @sale_transaction_line_item.delete) || @sale_transaction_line_item.save
         updated = true
       end
 
@@ -42,9 +49,7 @@ class SaleTransactionLineItemsController < ApplicationController
         format.html { redirect_to "/my_cart", status: :unprocessable_entity }
         format.json { render json: @sale_transaction_line_item.errors, status: :unprocessable_entity }
       else
-        @cart = Cart.current_cart
-        @sale_transaction_line_items = Cart.current_cart.sale_transaction_line_items.where(:is_sold => false)
-        
+        @cart = Cart.current_cart        
         format.html { redirect_to "/my_cart", notice: @message }
         format.js
         format.json { render :show, status: :ok, location: @sale_transaction_line_item }

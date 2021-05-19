@@ -9,7 +9,6 @@ class ProductPartsController < ApplicationController
   end
 
   def show
-    @product_part
   end
 
   def new
@@ -18,7 +17,6 @@ class ProductPartsController < ApplicationController
   end
 
   def edit
-    @product_part
     @products = Product.all
   end
 

@@ -1,2 +1,7 @@
-$('#cart').html("<%=j render(@sale_transaction_line_items) %>");
+<% if @deleted == true %>
+    $('#lineItem<%= @sale_transaction_line_item.id %>').remove();
+<% else %>
+    $('#quantityFor<%=j @sale_transaction_line_item.id %>').html("Quantity: <%=j @sale_transaction_line_item.quantity %>");
+    $('#subtotalFor<%=j @sale_transaction_line_item.id %>').html("Sub-total: <%=j number_to_currency(number_with_delimiter(@sale_transaction_line_item.subtotal, delimiter: ",")) %>");
+<% end %>
 $('#total-price').html("Cart Total: <%= number_to_currency(@cart.total_price) %>");

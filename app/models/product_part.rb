@@ -1,5 +1,5 @@
 class ProductPart < ApplicationRecord
   belongs_to :product
 
-  validates :name, :date_expired, :description, :product_id, presence: true
+  validates :name, :date_expired, :description, presence: true
 end

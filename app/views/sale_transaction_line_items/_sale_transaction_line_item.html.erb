@@ -1,9 +1,19 @@
-<tr>
-    <td><%= sale_transaction_line_item.id %></td>
-    <td><%= sale_transaction_line_item.quantity %></td>
-    <td><%= number_to_currency(sale_transaction_line_item.subtotal) %></td>
-    <td style="display:flex; flex-direction:row; align-items:center">
-        <%= button_to 'Increment', sale_transaction_line_item_path(sale_transaction_line_item.id), params: {:increment => true }, method: :put, remote: true %> &nbsp;
-        <%= button_to 'Decrement', sale_transaction_line_item_path(sale_transaction_line_item.id), params:{:decrement => true }, method: :put, remote: true %>
-    </td>
-</tr>
+<div id="lineItem<%= sale_transaction_line_item.id %>" style="padding: 0px 10px;">
+    <div class="card text-center" style="width: 20rem;">
+        <div class="card-img-top">
+            <% if sale_transaction_line_item.product.images.first.present? %>
+                <%= image_tag sale_transaction_line_item.product.thumbnail(sale_transaction_line_item.product.images.first), class: "card-img-top" %>
+            <% else %>
+                <img class="card-img-top" src="https://picsum.photos/300/200" alt="Card image cap">
+            <% end %>
+        </div>
+        <div class="card-body">
+        <h5 id="quantityFor<%= sale_transaction_line_item.id %>" class="card-title">Quantity: <%= sale_transaction_line_item.quantity %></h5>
+        <p id="subtotalFor<%= sale_transaction_line_item.id %>" class="card-text">Sub-total: <%= number_to_currency(number_with_delimiter(sale_transaction_line_item.subtotal, delimiter: ",")) %></p>
+        <div style="display:flex; flex-direction:row; align-items:center;margin-left:10%;">
+            <%= button_to 'Increment', sale_transaction_line_item_path(sale_transaction_line_item.id), params: {:increment => true }, method: :put, remote: true, class: "btn btn-primary" %> &nbsp;
+            <%= button_to 'Decrement', sale_transaction_line_item_path(sale_transaction_line_item.id), params:{:decrement => true }, method: :put, remote: true, class: "btn btn-primary" %>
+        </div>
+    </div>
+    <br/>
+</div>
