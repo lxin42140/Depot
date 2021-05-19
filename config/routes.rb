@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :sale_transactions, :path => "my_transactions"
   resources :sale_transaction_line_items
   resources :products
+  resources :product_parts
 end
