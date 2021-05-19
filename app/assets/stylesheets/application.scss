@@ -17,32 +17,9 @@
 @import "bootstrap";
 @import "font-awesome";
 
-body,
-body > p,
-body > ol,
-body > ul,
-body > td {
-  margin: 8px !important;
-}
-
-.borderless td, .borderless th {
-  border: none;
-}
-
-@media all and (max-width: 800px) {
-  #columns {
-    flex-direction: column-reverse;
-  }
-}
-
-@media all and (max-width: 500px) {
-  #banner {
-    height: 1em;
-  }
-
-  #banner .title {
-    display: none;
-  }
+/**=====================================DATATABLE====================================== */
+.dataTables_filter {
+  margin-left: 70%;
 }
 
 /** =====================================SELECT 2======================================== */
