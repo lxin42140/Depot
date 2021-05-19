@@ -1,3 +1,6 @@
 $('#modalBody').html("<%=j render 'form', product: @product %>")
 $('#modalProduct').modal("show");
-$('select').select2();
+$('select').select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+});
