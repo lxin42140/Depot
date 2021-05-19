@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
                                       :delivery, 
                                       images: [], 
                                       category: [],
-                                      product_parts_attributes: [:id, :name, :date_expired, :_destroy]
+                                      product_parts_attributes: [:id, :name, :date_expired, :_destroy, :description]
                                     )
     end
 

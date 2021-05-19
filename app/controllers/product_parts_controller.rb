@@ -14,19 +14,25 @@ class ProductPartsController < ApplicationController
 
   def new
     @product_part = ProductPart.new
+    @products = Product.all
   end
 
   def edit
     @product_part
+    @products = Product.all
   end
 
   def create
       @product_part = ProductPart.new(product_part_params)
+      @product_part.product = Product.find(params[:product_id])
+      
       respond_to do |format|
-        if @product_part
+        if @product_part.save
           format.html { redirect_to @product_part, notice: "Product part was successfully created." }
+          format.js
           format.json { render :show, status: :created, location: @product_part }
         else
+          format.js { render :new } # to show form validation errors
           format.html { redirect_to @product_part, status: :unprocessable_entity }
           format.json { render json: @product_part.errors, status: :unprocessable_entity }
         end
@@ -61,10 +67,11 @@ class ProductPartsController < ApplicationController
     end
 
     def product_part_params
-      params.require(:product).permit(:product_id, 
-                                      :name, 
-                                      :id,
-                                      :date_expired
+      params.require(:product_part).permit(:product_id, 
+                                            :name, 
+                                            :id,
+                                            :date_expired,
+                                            :description
                                     )
     end
 end

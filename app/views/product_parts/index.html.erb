@@ -1,1 +1,54 @@
-<h1>Product parts</h1>
+<br/>
+
+<h1 class="display-4" style="text-align:center" >View All Product Parts</h1>
+<br/>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <%= link_to (new_product_part_path), remote: true, class: 'btn btn-primary', style: "color: white; margin-left:40%;" do %>
+        <%= fa_icon "plus" %> Create New Part
+      <% end %>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col">
+      <table id="productTable" class="table table-bordered table-light" style="width: 100%">
+        <thead>
+          <th>Part Name</th>
+          <th>Product Name</th>
+          <th>Date Created</th>
+          <th>Expiry Date</th>
+        </thead>
+        <tbody id="productParts">
+          <% @product_parts.each do |product_part| %>
+            <%= render product_part %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>  
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalProductPart" tabindex="-1" role="dialog" aria-labelledby="modalProductPartTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create New Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modalBody" class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#productTable').DataTable();
+  });
+</script>
