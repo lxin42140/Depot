@@ -24,6 +24,12 @@
               <%= fa_icon "list" %> My Transactions
             <% end %>
           </li>
+        <% else %>
+          <li class="nav-item" style="font-size: 20px;">
+            <%= link_to (product_parts_url),  method: :get, class: 'nav-link' do %>
+              <%= fa_icon "wrench" %> Product Parts
+            <% end %>
+          </li>
         <% end%>
         <li class="nav-item" style="font-size: 20px;">
           <%= link_to (destroy_user_session_path), method: :delete, class: 'nav-link' do %>
