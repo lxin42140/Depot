@@ -1,6 +1,6 @@
 class Cart < ApplicationRecord
     has_many :sale_transaction_line_items, dependent: :destroy
-    belongs_to :user, dependent: :destroy
+    belongs_to :user
     validates :user_id, presence: true
 
     cattr_accessor :current_cart

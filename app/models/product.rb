@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
     has_many :products_staffs, class_name: "ProductsStaffs"
     has_many :users, through: :products_staffs
-    has_many_attached :images, dependent: :destroy
+    has_many_attached :images
     has_many :product_parts
     accepts_nested_attributes_for :product_parts, allow_destroy: true
     

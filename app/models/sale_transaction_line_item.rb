@@ -1,6 +1,6 @@
 class SaleTransactionLineItem < ApplicationRecord
     belongs_to :sale_transaction, optional: true
-    belongs_to :cart, dependent: :destroy
+    belongs_to :cart
     belongs_to :product
     
     validates :quantity, :subtotal, presence: true
