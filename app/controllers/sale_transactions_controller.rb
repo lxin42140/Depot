@@ -1,6 +1,5 @@
 class SaleTransactionsController < ApplicationController
   
-  before_action :set_sale_transaction, only: %i[ show ]
   before_action only: [:index] do 
     self.check_access(User.access_rights[:customer])
   end
@@ -54,10 +53,6 @@ class SaleTransactionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sale_transaction
-      @sale_transaction = SaleTransaction.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def sale_transaction_params

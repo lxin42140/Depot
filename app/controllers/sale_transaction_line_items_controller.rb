@@ -1,7 +1,4 @@
 class SaleTransactionLineItemsController < ApplicationController
-  include CurrentCart
-  
-  before_action :set_cart, only: [:create]
   before_action :set_sale_transaction_line_item, only: %i[ show edit update destroy ]
   before_action only: [:index, :show, :new, :edit, :create, :update, :destroy] do 
     self.check_access(User.access_rights[:customer])
@@ -58,12 +55,10 @@ class SaleTransactionLineItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_sale_transaction_line_item
       @sale_transaction_line_item = SaleTransactionLineItem.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def sale_transaction_line_item_params
       params.require(:sale_transaction_line_item).permit(:product_id, :quantity, :subtotal)
     end
