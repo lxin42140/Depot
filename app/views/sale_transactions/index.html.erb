@@ -1,4 +1,14 @@
-<h1>My Sale Transactions</h1>
+<h1 class="display-4" style="text-align:center" >My Sale Transactions</h1>
+<br/>
+
+<div class="row justify-content-center">
+  <div class="canvasContainer" style="width: 500px;">
+      <canvas id="transactionChart"></canvas>
+  </div>
+</div>
+
+<br/>
+<br/>
 
 <table id="table_transactions" class="display table table-striped table-bordered" role="datatable" style="width:100%">
   <thead>
@@ -29,6 +39,51 @@
     $('#table_transactions').DataTable({
       //auto sort by transaction date
       order: [[ 4, 'desc' ]],
+    });
+
+    var dateArray = [];
+    var amountArray = [];
+    $('#table_transactions').find('tr').each(function (i, el) {
+      var $tds = $(this).find('td'),
+          amount = $tds.eq(3).text(),
+          date = $tds.eq(4).text();
+          var currAmount = parseInt(amount.replace(/\D/g,''));
+          currAmount /= 100;
+          if(dateArray[dateArray.length-1] === date) {
+            amountArray[amountArray.length-1] += currAmount;
+          } else {
+            dateArray.push(date);
+            amountArray.push(currAmount);
+          }
+    });
+
+    var transactions = {
+        labels : dateArray,
+        datasets : [
+          {
+            data : amountArray,
+            label: 'Amount/Day (SGD)',
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }
+        ]
+    }
+
+    var context = document.getElementById('transactionChart').getContext('2d');
+    new Chart(context , {
+      type: "line",
+      data: transactions, 
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        showScale: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        }
+      },
     });
   });
 </script>
