@@ -1,15 +1,17 @@
-<div class="card text-center" style="width: 20rem;">
-    <div class="card-img-top">
-        <% if product.images.first.present? %>
-            <%= image_tag product.thumbnail(product.images.first), class: "card-img-top" %>
-        <% else %>
-            <img class="card-img-top" src="https://picsum.photos/300/200" alt="Card image cap">
-        <% end %>
+<div style="padding: 0px 10px;">
+    <div class="card text-center" style="width: 20rem;">
+        <div class="card-img-top">
+            <% if product.images.first.present? %>
+                <%= image_tag product.thumbnail(product.images.first), class: "card-img-top" %>
+            <% else %>
+                <img class="card-img-top" src="https://picsum.photos/300/200" alt="Card image cap">
+            <% end %>
+        </div>
+        <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <p class="card-text"><%= number_to_currency(number_with_delimiter(product.unit_price, delimiter: ",")) %></p>
+        <%= link_to 'View details', product, method: :get, class: 'btn btn-primary' %>
+        </div>
     </div>
-    <div class="card-body">
-    <h5 class="card-title"><%= product.name %></h5>
-    <p class="card-text"><%= number_to_currency(number_with_delimiter(product.unit_price, delimiter: ",")) %></p>
-    <%= link_to 'View details', product, method: :get, class: 'btn btn-primary' %>
-    </div>
+    <br/>
 </div>
-<br/>
