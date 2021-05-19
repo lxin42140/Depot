@@ -3,6 +3,7 @@ class Product < ApplicationRecord
     has_many :users, through: :products_staffs
     has_many_attached :images, dependent: :destroy
     has_many :product_parts
+    accepts_nested_attributes_for :product_parts, allow_destroy: true
     
     validates :name, :description, :unit_price, :category, :model, :delivery, presence: true
     validates :unit_price, numericality: {greater_than_or_equal_to: 0.01}

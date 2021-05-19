@@ -1,0 +1,15 @@
+<div class="nested-fields">
+    <div class="form-group">
+        <%= f.label :name %><br/>
+        <%= f.text_field :name, required: true, class: "form-control", placeholder: "Product part name"%>
+    </div>
+
+    <div class="form-group ">
+        <%= f.label :date_expired %><br/>
+        <%= f.date_field  :date_expired, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), required: true, class: "form-control", placeholder: "Expiry date"%>
+    </div>
+
+    <%= link_to_remove_association 'Remove Part', f %>
+</div>
+
+

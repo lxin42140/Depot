@@ -11,6 +11,7 @@ import "packs/bootstrap"
 import $ from 'jquery';
 import "select2"
 
+require("@nathanvda/cocoon")
 require('datatables.net-bs4')
 
 global.$ = jQuery;

@@ -1,7 +1,7 @@
-<%= form_with(model: product, local: false) do |form| %>
+<%= form_for @product, :remote => true do |f| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+      <h2><%= pluralize(product.errors.count, "error") %> errors:</h2>
 
       <ul>
         <% product.errors.each do |error| %>
@@ -11,47 +11,61 @@
     </div>
   <% end %>
 
-<div class="form-group">
-  <%= form.label :name %><br/>
-  <%= form.text_field :name, required: true, class: "form-control", placeholder: "Product name"%>
-</div>
+  <div class="form-group">
+    <%= f.label :name %><br/>
+    <%= f.text_field :name, required: true, class: "form-control", placeholder: "Product name"%>
+  </div>
 
-<div class="form-group">
-  <%= form.label :model %><br/>
-  <%= form.text_field  :model, required: true, class: "form-control", placeholder: "Model name"%>
-</div>
+  <div class="form-group">
+    <%= f.label :model %><br/>
+    <%= f.text_field  :model, required: true, class: "form-control", placeholder: "Model name"%>
+  </div>
 
-<div class="form-group">
-  <%= form.label :delivery %><br/>
-  <%= form.text_field  :delivery, required: true, class: "form-control", placeholder: "Delivery address"%>
-</div>
+  <div class="form-group">
+    <%= f.label :delivery %><br/>
+    <%= f.text_field  :delivery, required: true, class: "form-control", placeholder: "Delivery address"%>
+  </div>
 
-<div class="form-group">
-  <%= form.label :description %><br/>
-  <%= form.text_area :description, required: true, class: "form-control", placeholder: "Product description"%>
-</div>
+  <div class="form-group">
+    <%= f.label :description %><br/>
+    <%= f.text_area :description, required: true, class: "form-control", placeholder: "Product description"%>
+  </div>
 
-<div class="form-group">
-  <%= form.label :unit_price %><br/>
-  <%= form.number_field  :unit_price, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Product price"%>
-</div>
+  <div class="form-group">
+    <%= f.label :unit_price %><br/>
+    <%= f.number_field  :unit_price, required: true, in: 1.0..10000.0, class: "form-control", placeholder: "Product price"%>
+  </div>
 
-<div class="form-group">
-  <%= form.label :category %><br/>
-  <select name="category[]" multiple="multiple" style="width:100%">
-    <option value="Gameboy">Gameboy</option>
-    <option value="T-shirt">T-shirt</option>
-    <option value="Jewellery">Jewellery</option>
-    <option value="Jeans">Jeans</option>
-  </select>
-  <small class="form-text text-muted">Select at least one.</small>
-</div>
+  <div class="form-group">
+    <%= f.label :category %><br/>
+    <select name="category[]" multiple="multiple" style="width:100%">
+      <option value="Gameboy">Gameboy</option>
+      <option value="T-shirt">T-shirt</option>
+      <option value="Jewellery">Jewellery</option>
+      <option value="Jeans">Jeans</option>
+    </select>
+    <small class="form-text text-muted">Select at least one.</small>
+  </div>
 
-<div class="form-group">
-  <%= form.label :images %><br/>
-  <%= form.file_field :images, multiple: true, class: "form-control-file"%>
-</div>
+  <p class="lead">Product Parts:</p>
+  <div>
+    <%= f.fields_for :product_parts do |product_part| %>
+      <%= render 'product_part_fields', f: product_part %>
+    <% end %>
+  </div>
 
-<%= form.submit class: "btn btn-primary mb-2"%>
+  <div class="btn btn-outline-primary btn-sm">
+    <%= link_to_add_association 'Add Product Part', f, :product_parts %>
+  </div>
+
+  <br/>
+  <br/>
+
+  <div class="form-group">
+    <%= f.label :images %><br/>
+    <%= f.file_field :images, multiple: true, class: "form-control-file"%>
+  </div>
+
+  <%= f.submit class: "btn btn-primary mb-2"%>
 
 <% end %>

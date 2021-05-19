@@ -33,6 +33,8 @@ gem 'image_processing', '~> 1.2'
 
 gem 'mini_magick'
 
+gem 'cocoon', '~> 1.2', '>= 1.2.9'
+
 # For exporting as zip
 # gem 'rubyzip', '>= 1.2.1'
 # gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
