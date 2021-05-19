@@ -53,7 +53,9 @@
 
     // $('#inputDateExpired').datetimepicker();
 
-    var table = $('#productTable').DataTable();
+    var table = $('#productTable').DataTable({
+      orderable: true
+    });
 
     table.on('click', 'tr', function () {
       var partId = table.row(this).data()[0];
