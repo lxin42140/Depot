@@ -9,7 +9,7 @@ class SaleTransactionsController < ApplicationController
   end
 
   def show
-    @sale_transaction = SaleTransaction.find(params[:id])
+    @sale_transaction = SaleTransaction.includes(sale_transaction_line_items: :product).find(params[:id])
     respond_to do |format|
       format.xlsx
     end
@@ -35,7 +35,6 @@ class SaleTransactionsController < ApplicationController
 
     respond_to do |format|
       if @sale_transaction.save
-        #send email
         OrderMailer.received(Cart.current_cart.sale_transaction_line_items, current_user).deliver_now
 
         format.html { redirect_to "/my_transactions", notice: "Sale transaction was successfully created." }
