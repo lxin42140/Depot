@@ -19,6 +19,7 @@
           <th>Total quantity</th>
           <th>Total amount</th>
           <th>Transaction date</th>
+          <th>Download</th>
         </tr>
       </thead>
 
@@ -30,6 +31,11 @@
             <td><%= sale_transaction.total_quantity %></td>
             <td><%= number_to_currency(sale_transaction.total_amount) %></td>
             <td><%= sale_transaction.transaction_date %></td>
+            <td>
+              <%= link_to (sale_transaction_url(format: :xlsx, id: sale_transaction)) do %>
+                <%= fa_icon "download" %> Excel
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

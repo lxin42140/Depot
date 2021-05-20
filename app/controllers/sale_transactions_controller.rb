@@ -1,6 +1,6 @@
 class SaleTransactionsController < ApplicationController
   
-  before_action only: [:index] do 
+  before_action only: [:index, :create] do 
     self.check_access(User.access_rights[:customer])
   end
 
@@ -8,38 +8,35 @@ class SaleTransactionsController < ApplicationController
     @sale_transactions = current_user.sale_transactions
   end
 
+  def show
+    @sale_transaction = SaleTransaction.find(params[:id])
+    respond_to do |format|
+      format.xlsx
+    end
+  end
+
   def create
     @sale_transaction = SaleTransaction.new
-    
-    line_items = Cart.current_cart.sale_transaction_line_items.select{ |item| item.is_sold == false}
-    
-    transaction_created = false
+    @sale_transaction.total_line_item = 0
+    @sale_transaction.total_amount = 0
+    @sale_transaction.total_quantity = 0
+    @sale_transaction.transaction_date = Date.today
+    @sale_transaction.user = current_user
 
-    ActiveRecord::Base.transaction do
-      @sale_transaction.total_line_item = 0
-      @sale_transaction.total_amount = 0
-      @sale_transaction.total_quantity = 0
-      @sale_transaction.transaction_date = Date.today
-      @sale_transaction.user = current_user
-
-      for item in line_items do
+    for item in Cart.current_cart.sale_transaction_line_items do
+      if item.is_sold == false
         @sale_transaction.total_line_item += 1
         @sale_transaction.total_amount += item.subtotal
         @sale_transaction.total_quantity += item.quantity
         @sale_transaction.sale_transaction_line_items << item
         item.is_sold = true
-        item.save!
-      end
-
-      if @sale_transaction.save!
-        transaction_created = true
-      end
-    end 
+      end 
+    end
 
     respond_to do |format|
-      if transaction_created == true
+      if @sale_transaction.save
         #send email
-        OrderMailer.received(line_items, current_user).deliver_now
+        OrderMailer.received(Cart.current_cart.sale_transaction_line_items, current_user).deliver_now
 
         format.html { redirect_to "/my_transactions", notice: "Sale transaction was successfully created." }
         format.json { render :show, status: :created, location: @sale_transaction }
@@ -52,9 +49,9 @@ class SaleTransactionsController < ApplicationController
   end
 
   private
-
+    
     def sale_transaction_params
-      params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
+      params.require(:sale_transaction).permit(:id, :transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
     end
 
 end

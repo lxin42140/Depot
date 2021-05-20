@@ -17,7 +17,7 @@
           <%= fa_icon "shopping-cart" %>&nbsp; Cart Total: <%= number_to_currency(@cart.total_price) %>
         </p>
         <div id="cartButtons" style="display:flex; flex-direction:row; align-items:center; padding-top: 10px;">
-          <% if @cart.sale_transaction_line_items.present? %>
+          <% if @sale_transaction_line_items.present? %>
             <%= button_to 'Empty cart', "/my_cart/#{@cart.id}", method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> &nbsp;&nbsp;
             <%= button_to "Check out", sale_transactions_path, method: :post, class: "btn btn-success" %>
           <% end %>

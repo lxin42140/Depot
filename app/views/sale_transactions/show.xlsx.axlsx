@@ -1,0 +1,19 @@
+wb = xlsx_package.workbook
+s = wb.styles
+header     = s.add_style bg_color: 'DD', sz: 16, b: true, alignment: { horizontal: :center }
+money      = s.add_style num_fmt: 5
+t_money    = s.add_style b: true, num_fmt: 5, alignment: { horizontal: :center }
+t_data     = s.add_style alignment: { horizontal: :center }
+t_label    = s.add_style b: true, bg_color: 'FFDFDEDF'
+t_total    = s.add_style sz: 16, b: true
+
+wb.add_worksheet(name: 'Sale Transaction') do |sheet|
+  sheet.add_row
+  sheet.add_row ['Product Name', "Product Unit Price", "Product Quantity", "Product Subtotal"], style: header, offset: 1
+  sheet.add_row
+  @sale_transaction.sale_transaction_line_items.each do |item|
+    sheet.add_row [item.product.name, item.product.unit_price, item.quantity, item.subtotal], style: [t_data, t_money, t_data, t_money], offset: 1
+  end
+  sheet.add_row
+  sheet.add_row ['Total', @sale_transaction.total_amount], style: [t_total, t_money], offset: 1
+end
