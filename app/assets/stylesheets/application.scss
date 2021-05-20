@@ -707,36 +707,40 @@
 /** =====================================SIDE BAR========================================================== */
 /* The sidebar menu */
 .sidebar {
-  margin-top: 4.5%;
+  // margin-top: 4.5%;
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0;
   left: 0;
-  background-image: linear-gradient(to right, white, gray);
+  background-color: #f8f9fa !important;
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.2s; /* 0.5 second transition effect to slide in the sidebar */
 }
 
+.sidebar-title {
+  font-size: 35px;
+}
+
 /* The sidebar links */
 .sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
   transition: 0.3s;
 }
 
-/* When you mouse over the navigation links, change their color */
-.sidebar a:hover {
-  color: #f1f1f1;
+.btn-sidebar {
+  margin-left: 7%;
+  color: black;
 }
 
 /* Position and style the close button (top right corner) */
 .sidebar .closebtn {
+  padding-left: 8%;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  display: block;
   position: absolute;
   top: 0;
   right: 25px;
@@ -744,18 +748,9 @@
   margin-left: 50px;
 }
 
-/* The button used to open the sidebar */
 .openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
+  transition: 0.2s;
+  margin-top: -10%;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */

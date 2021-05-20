@@ -57,7 +57,6 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    #if product is in cart, cannot delete
     if @product.is_product_referenced_by_line_items
       flash[:error] = "Product is in use!"
 
@@ -68,7 +67,6 @@ class ProductsController < ApplicationController
       
       return
     else 
-      # soft delete
       @product.update(is_deleted: true)
       create_log(@product, "delete")     
 

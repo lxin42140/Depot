@@ -1,17 +1,10 @@
 <br/>
 
 <h1 class="display-4" style="text-align:center" >View All Product Parts</h1>
-<br/>
+
+<%= render partial: "shared/sidebar", locals: { page: "products parts" } %>
 
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <%= link_to (new_product_part_path), remote: true, class: 'btn btn-primary', style: "color: white; margin-left:40%;" do %>
-        <%= fa_icon "plus" %> Create New Part
-      <% end %>
-    </div>
-  </div>
-  <br/>
   <div class="row">
     <div class="col">
       <table id="productTable" class="table table-bordered table-light table-hover" style="width: 100%">
