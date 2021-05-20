@@ -15,11 +15,9 @@
       <thead>
         <tr>
           <th>Transaction ID</th>
-          <th>Total line item</th>
-          <th>Total quantity</th>
           <th>Total amount</th>
           <th>Transaction date</th>
-          <th>Download</th>
+          <th>Download Details</th>
         </tr>
       </thead>
 
@@ -27,10 +25,8 @@
         <% @sale_transactions.each do |sale_transaction| %>
           <tr>
             <td><%= sale_transaction.id %></td>
-            <td><%= sale_transaction.total_line_item %></td>
-            <td><%= sale_transaction.total_quantity %></td>
             <td><%= number_to_currency(sale_transaction.total_amount) %></td>
-            <td><%= sale_transaction.transaction_date %></td>
+            <td><%= sale_transaction.transaction_date.strftime("%d/%m/%Y") %></td>
             <td>
               <%= link_to (sale_transaction_url(format: :xlsx, id: sale_transaction)) do %>
                 <%= fa_icon "download" %> Excel
@@ -46,15 +42,17 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#table_transactions').DataTable({
-      order: [[ 4, 'desc' ]]
+      columnDefs: [
+        { orderable: false, targets: 3 }
+      ],
     });
 
     var dateArray = [];
     var amountArray = [];
     $('#table_transactions').find('tr').each(function (i, el) {
       var $tds = $(this).find('td'),
-          amount = $tds.eq(3).text(),
-          date = $tds.eq(4).text();
+          amount = $tds.eq(1).text(),
+          date = $tds.eq(2).text();
           var currAmount = parseInt(amount.replace(/\D/g,''));
           currAmount /= 100;
           if(dateArray[dateArray.length-1] === date) {
