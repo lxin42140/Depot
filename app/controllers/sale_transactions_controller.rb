@@ -11,24 +11,23 @@ class SaleTransactionsController < ApplicationController
   def create
     @sale_transaction = SaleTransaction.new
     
-    line_items = Cart.current_cart.sale_transaction_line_items.select{|item| item.is_sold == false}
+    line_items = Cart.current_cart.sale_transaction_line_items.select{ |item| item.is_sold == false}
     
     transaction_created = false
 
     ActiveRecord::Base.transaction do
-      @sale_transaction[:total_line_item] = 0
-      @sale_transaction[:total_amount] = 0
-      @sale_transaction[:total_quantity] = 0
-      @sale_transaction[:transaction_date] = Date.today
+      @sale_transaction.total_line_item = 0
+      @sale_transaction.total_amount = 0
+      @sale_transaction.total_quantity = 0
+      @sale_transaction.transaction_date = Date.today
       @sale_transaction.user = current_user
 
       for item in line_items do
-        @sale_transaction[:total_line_item] += 1
-        @sale_transaction[:total_amount] += item[:subtotal]
-        @sale_transaction[:total_quantity] += item[:quantity]
+        @sale_transaction.total_line_item += 1
+        @sale_transaction.total_amount += item.subtotal
+        @sale_transaction.total_quantity += item.quantity
         @sale_transaction.sale_transaction_line_items << item
-        item[:is_sold] = true
-
+        item.is_sold = true
         item.save!
       end
 
@@ -45,7 +44,7 @@ class SaleTransactionsController < ApplicationController
         format.html { redirect_to "/my_transactions", notice: "Sale transaction was successfully created." }
         format.json { render :show, status: :created, location: @sale_transaction }
       else
-        flash[:error] = "Could not check out"
+        flash.error = "Could not check out"
         format.html { redirect_to "/my_transactions", status: :unprocessable_entity }
         format.json { render json: @sale_transaction.errors, status: :unprocessable_entity }
       end
@@ -54,7 +53,6 @@ class SaleTransactionsController < ApplicationController
 
   private
 
-    # Only allow a list of trusted parameters through.
     def sale_transaction_params
       params.require(:sale_transaction).permit(:transaction_id, :total_line_item, :total_quantity, :total_amount, :decimal, :transaction_date, :Date)
     end
