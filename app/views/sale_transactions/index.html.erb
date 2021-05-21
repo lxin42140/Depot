@@ -26,7 +26,7 @@
           <tr>
             <td><%= sale_transaction.id %></td>
             <td><%= number_to_currency(sale_transaction.total_amount) %></td>
-            <td><%= sale_transaction.transaction_date.strftime("%d/%m/%Y") %></td>
+            <td><%= sale_transaction.created_at.strftime("%d/%m/%Y") %></td>
             <td>
               <%= link_to (sale_transaction_url(format: :xlsx, id: sale_transaction)) do %>
                 <%= fa_icon "download" %> Excel

@@ -20,7 +20,6 @@ class SaleTransactionsController < ApplicationController
     @sale_transaction.total_line_item = 0
     @sale_transaction.total_amount = 0
     @sale_transaction.total_quantity = 0
-    @sale_transaction.transaction_date = Date.today
     @sale_transaction.user = current_user
 
     for item in Cart.current_cart.sale_transaction_line_items do

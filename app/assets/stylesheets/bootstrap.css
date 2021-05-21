@@ -6311,7 +6311,8 @@ button.close {
   color: #fff;
   text-decoration: none;
   outline: 0;
-  opacity: 0.9;
+  opacity: 0.5;
+  background-color: gray;
 }
 
 .carousel-control-prev {

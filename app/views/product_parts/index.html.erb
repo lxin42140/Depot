@@ -17,7 +17,7 @@
           <th>Date Created</th>
           <th>Expiry Date</th>
         </thead>
-        <tbody id="productParts">
+        <tbody id="productParts" class="sortable">
           <% @product_parts.each do |product_part| %>
             <%= render product_part %>
           <% end %>
@@ -45,12 +45,13 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#productTable').DataTable({
+    var table = $('#productTable').DataTable({
       orderable: true
     });
   });
 
-  function redirectToPartDetails(id) {
-    window.location.replace("product_parts/" + id);
+  function redirectToPartDetails(uri) {
+    window.location.replace(uri);
   }
+  
 </script>

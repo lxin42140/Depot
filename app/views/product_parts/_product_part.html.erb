@@ -1,4 +1,4 @@
-<tr onclick="redirectToPartDetails(<%= product_part.id  %>)">
+<tr onclick="redirectToPartDetails('product_parts/' + <%= product_part.id  %>)">
   <td><%= product_part.id %></td>
   <td><%= product_part.name %></td>
   <td><%= product_part.product.name %></td>
