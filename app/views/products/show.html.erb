@@ -27,14 +27,16 @@
             </div>
           <% end %>
         </div>
-        <a class="carousel-control-prev" href="#carouselImages" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselImages" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+        <% if @product.images.count > 1 %>
+          <a class="carousel-control-prev" href="#carouselImages" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselImages" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        <% end %>
       </div>
       <br/>
       <div class="lead" style="color: gray; width: 30rem;"><%= fa_icon "info" %> &nbsp; <%= @product.description %></div>

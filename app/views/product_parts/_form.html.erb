@@ -18,9 +18,9 @@
         <%= f.text_field :description, required: true, class: "form-control", placeholder: "Product part description"%>
     </div>
 
-    <div class="form-group ">
+    <div class="form-group">
         <%= f.label :date_expired %><br/>
-        <%= f.date_field  :date_expired, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), required: true, class: "form-control", placeholder: "Expiry date", id: "inputDateExpired" %>
+        <%= f.datetime_local_field :date_expired, required: true, class: "form-control datetimepicker-input", placeholder: "Expiry date", id: "datetimepicker" %>
     </div>
     
     <div class="form-group">
@@ -28,6 +28,8 @@
         <%= select_tag "product_id", options_from_collection_for_select(@products, :id, :name) %>
     </div>
 
-    <%= f.submit class: "btn btn-primary mb-2"%>
-
+    <div class="col text-center">
+        <%= f.submit class: "btn btn-primary mb-2"%>
+    </div>
+    
 <% end %>

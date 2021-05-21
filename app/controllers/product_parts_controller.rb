@@ -5,7 +5,7 @@ class ProductPartsController < ApplicationController
     end
 
   def index
-    @product_parts = ProductPart.all
+    @product_parts = ProductPart.includes(:product).where(product: { is_deleted: false })
   end
 
   def show
@@ -13,11 +13,11 @@ class ProductPartsController < ApplicationController
 
   def new
     @product_part = ProductPart.new
-    @products = Product.all
+    @products = Product.where(is_deleted: false)
   end
 
   def edit
-    @products = Product.all
+    @products = Product.where(is_deleted: false)
   end
 
   def create

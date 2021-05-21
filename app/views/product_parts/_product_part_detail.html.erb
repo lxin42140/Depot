@@ -2,13 +2,13 @@
     <br/>
     <h5 class="card-title">
         <%= fa_icon "wrench"%>
-        <%= product_part_detail.product.name %>'s part: <%= product_part_detail.name %>
+        <%= product_part_detail.product.name %>'s <%= product_part_detail.name %>
     </h5>
     <%= image_tag product_part_detail.product.show_image(product_part_detail.product.images.first), class: "card-img-top" %>
     <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
             <%= fa_icon "exclamation-triangle"%>
-            Expires in <%= (product_part_detail.date_expired - Date.today).to_i %> days (<%= product_part_detail.date_expired.strftime("%d/%m/%Y") %>)
+            Expires in <%= product_part_detail.get_hour_min_difference %> @ <%= product_part_detail.date_expired.strftime("%d/%m/%Y") %>
         </h6>
         <p class="card-text">
             <%= fa_icon "info"%>

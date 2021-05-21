@@ -16,6 +16,15 @@
 
 @import "bootstrap";
 @import "font-awesome";
+// @import "../../../node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css";
+
+/** =====================================FORM VALIDATION ERROR==============================*/
+.field_with_errors {
+  padding: none !important; 
+  background-color: #f8d7da !important; 
+  display: inherit !important;
+  border-radius: 0.25rem !important;
+}
 
 /** =====================================SELECT 2======================================== */
 .select2-container {

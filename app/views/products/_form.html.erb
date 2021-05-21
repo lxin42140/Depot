@@ -44,6 +44,11 @@
     <small class="form-text text-muted">Select at least one.</small>
   </div>
 
+  <div class="form-group">
+    <%= f.label :images %><br/>
+    <%= f.file_field :images, multiple: true, class: "form-control-file"%>
+  </div>
+
   <p class="lead">Product Parts:</p>
   <div>
     <%= f.fields_for :product_parts do |product_part| %>
@@ -57,12 +62,9 @@
 
   <br/>
   <br/>
-
-  <div class="form-group">
-    <%= f.label :images %><br/>
-    <%= f.file_field :images, multiple: true, class: "form-control-file"%>
+  
+  <div class="col text-center">
+    <%= f.submit class: "btn btn-primary mb-2"%>
   </div>
-
-  <%= f.submit class: "btn btn-primary mb-2"%>
 
 <% end %>

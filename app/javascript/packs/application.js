@@ -9,7 +9,11 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "packs/bootstrap"
 import $ from 'jquery';
-import "select2"
+import "select2";
+
+//DATETIMEPICKER
+// require("moment/locale/ja")
+// require("tempusdominus-bootstrap-4")
 
 require("@nathanvda/cocoon")
 require('datatables.net-bs4')

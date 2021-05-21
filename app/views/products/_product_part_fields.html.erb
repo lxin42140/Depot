@@ -11,7 +11,7 @@
 
     <div class="form-group ">
         <%= f.label :date_expired %><br/>
-        <%= f.date_field  :date_expired, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), required: true, class: "form-control", placeholder: "Expiry date"%>
+        <%= f.datetime_local_field :date_expired, required: true, class: "form-control datetimepicker-input", placeholder: "Expiry date", id: "datetimepicker" %>
     </div>
 
     <%= link_to_remove_association 'Remove Part', f %>
