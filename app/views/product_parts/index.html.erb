@@ -45,17 +45,12 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-
-    // $('#datetimepicker1').datetimepicker();
-
-    var table = $('#productTable').DataTable({
+    $('#productTable').DataTable({
       orderable: true
     });
-
-    table.on('click', 'tr', function () {
-      var partId = table.row(this).data()[0];
-      window.location.replace("/product_parts/"+ partId);
-    }); 
-
   });
+
+  function redirectToPartDetails(id) {
+    window.location.replace("product_parts/" + id);
+  }
 </script>

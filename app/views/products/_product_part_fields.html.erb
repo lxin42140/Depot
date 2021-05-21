@@ -11,10 +11,10 @@
 
     <div class="form-group ">
         <%= f.label :date_expired %><br/>
-        <%= f.datetime_local_field :date_expired, required: true, class: "form-control datetimepicker-input", placeholder: "Expiry date", id: "datetimepicker" %>
+        <%= f.text_field :date_expired, required: true, class: "form-control", placeholder: "Expiry date", class: "datetimepicker" %>
     </div>
 
     <%= link_to_remove_association 'Remove Part', f %>
+    
 </div>
-
-
+<br/>

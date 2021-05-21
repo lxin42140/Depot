@@ -49,15 +49,17 @@
     <%= f.file_field :images, multiple: true, class: "form-control-file"%>
   </div>
 
-  <p class="lead">Product Parts:</p>
-  <div>
-    <%= f.fields_for :product_parts do |product_part| %>
-      <%= render 'product_part_fields', f: product_part %>
-    <% end %>
-  </div>
+  <div id="nested-portion">
+    <p class="lead">Product Parts:</p>
+    <div>
+      <%= f.fields_for :product_parts do |product_part| %>
+        <%= render 'product_part_fields', f: product_part %>
+      <% end %>
+    </div>
 
-  <div class="btn btn-outline-primary btn-sm">
-    <%= link_to_add_association 'Add Product Part', f, :product_parts %>
+    <div class="btn btn-outline-primary btn-sm">
+      <%= link_to_add_association 'Add Product Part', f, :product_parts, style: "text-decoration: none"%>
+    </div>
   </div>
 
   <br/>
@@ -68,3 +70,21 @@
   </div>
 
 <% end %>
+
+<script>
+  $('#nested-portion').on('cocoon:after-insert', function(e, insertedItem) {
+      insertedItem.find('.datetimepicker').datetimepicker({
+      uiLibrary: 'bootstrap4',
+      modal: true,
+      footer: true,
+      format: 'dd/mm/yyyy HH:MM'
+    });
+  });
+
+  $('.datetimepicker').datetimepicker({
+    uiLibrary: 'bootstrap4',
+    modal: true,
+    footer: true,
+    format: 'dd/mm/yyyy HH:MM'
+  });
+</script>

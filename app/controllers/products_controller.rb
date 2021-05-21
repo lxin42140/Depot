@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: %i[ update destroy ]
   before_action only: [:create, :edit, :update, :destroy, :new] do 
     self.check_access(User.access_rights[:manager])
   end
@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @product = Product.includes(:product_parts).find(params[:id])
   end
 
   # GET /products/new
@@ -20,6 +21,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @product = Product.includes(:product_parts).find(params[:id])
   end
 
   # POST /products or /products.json
@@ -46,9 +48,10 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         create_log(@product, "update")
         format.html { redirect_to @product, notice: "Product was successfully updated." }
+        format.js
         format.json { render :show, status: :ok, location: @product }
       else
-        flash[:error] = "Could not update product!"
+        format.js { render :new } # to show form validation errors
         format.html { redirect_to products_url, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end

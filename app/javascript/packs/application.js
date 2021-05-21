@@ -10,15 +10,16 @@ import "channels"
 import "packs/bootstrap"
 import $ from 'jquery';
 import "select2";
-
-//DATETIMEPICKER
-// require("moment/locale/ja")
-// require("tempusdominus-bootstrap-4")
+window.$ = window.jQuery = window.jquery = jQuery;
 
 require("@nathanvda/cocoon")
 require('datatables.net-bs4')
 
-global.$ = jQuery;
+$(document).ready(function(){
+    setTimeout(function(){
+        // $('#flash-message').fadeOut(2000,0);
+    })
+})
 
 Rails.start()
 Turbolinks.start()

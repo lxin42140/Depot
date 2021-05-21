@@ -1,0 +1,89 @@
+
+<h1 class="display-4 text-muted" style="color: #444444 !important;"><%= product_detail.name %></h1>
+<br/>
+<p class="text-muted text-uppercase medium"><%= fa_icon "tags", style: "font-size: 30px;" %> <span style="font-size: 20px;"><%= product_detail.category %></span></p>
+<div id="carouselImages" class="carousel slide" data-ride="carousel">
+<div class="carousel-inner">
+    <div class="carousel-item active">
+        <%= image_tag product_detail.show_image(product_detail.images.first), class: "d-block w-100" %>
+        <div class="carousel-caption d-none d-md-block">
+        <%= link_to rails_blob_path(product_detail.images.first, disposition: 'attachment') do %>
+            <%= fa_icon "download", style: "font-size: 20px; padding: 5px 5px;background-color: white; color: blue; border-radius: 50%;" %>
+        <% end %>
+        </div>
+    </div>
+    <% (1...product_detail.images.count).each do |image|  %>
+    <div class="carousel-item text-center">
+        <%= image_tag product_detail.show_image(product_detail.images[image]), class: "d-block w-100" %>
+        <div class="carousel-caption d-none d-md-block">
+            <%= link_to rails_blob_path(product_detail.images[image], disposition: 'attachment') do %>
+            <%= fa_icon "download", style: "font-size: 20px; padding: 5px 5px;background-color: white; color: blue; border-radius: 50%;" %>
+            <% end %>
+        </div>
+    </div>
+    <% end %>
+</div>
+<% if product_detail.images.count > 1 %>
+    <a class="carousel-control-prev" href="#carouselImages" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselImages" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+    </a>
+<% end %>
+</div>
+<br/>
+<div class="lead" style="color: gray; width: 30rem;"><%= fa_icon "info" %> &nbsp; <%= product_detail.description %></div>
+<br/>
+<div class="table-responsive">
+<table class="table borderless table-sm">
+    <tbody>
+    <tr>
+        <th class="text-muted" scope="row"><strong>Model</strong></th>
+        <td class="text-muted"><%= product_detail.model %></td>
+    </tr>
+    <tr>
+        <th class="text-muted" scope="row"><strong>Delivery</strong></th>
+        <td class="text-muted"><%= product_detail.delivery %></td>
+    </tr>
+    <tr>
+        <th class="text-muted" scope="row"><strong>Included Parts</strong></th>
+        <td class="text-muted">
+            <% (0...(product_detail.product_parts.count - 1)).each do | index | %>
+                <span class="product-detail-part-button" onclick="redirectToPartDetails(<%= product_detail.product_parts[index].id %>)">
+                    <%= product_detail.product_parts[index].name %>
+                </span>,  
+            <% end %>
+            <span class="product-detail-part-button" onclick="redirectToPartDetails(<%= product_detail.product_parts[product_detail.product_parts.count - 1].id %>)">
+                <%= product_detail.product_parts[product_detail.product_parts.count - 1].name %>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div style="border-bottom: 1px solid gray;"></div>
+<br/>
+<div class="text-center">
+<% if user_signed_in? == true && current_user.access_right_enum == 2 %>
+    <%= link_to (edit_product_path(product_detail)), remote: true, class: 'btn btn-primary', style: "color: white" do %>
+    <%= fa_icon "pencil" %> Edit Product
+    <% end %>
+    &nbsp;
+    <%= link_to (product_detail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', style: "color: white" do %>
+    <%= fa_icon "trash" %> Delete Product
+    <% end %>
+<% else %>
+    <%= link_to (sale_transaction_line_items_path(product_id: product_detail)), method: :post, class: 'btn btn-primary', style: "color: white" do %>
+    <%= fa_icon "shopping-cart" %> Add To Cart
+    <% end %>
+<% end %>
+</div>
+
+<script type="text/javascript">
+  function redirectToPartDetails(id) {
+    window.location.href = "http://localhost:3000/product_parts/" + id;
+  }
+</script>
