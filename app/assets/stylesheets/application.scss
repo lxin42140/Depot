@@ -725,7 +725,7 @@
   left: 0;
   background-color: #f8f9fa !important;
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  padding-top: 35px; /* Place content 60px from the top */
   transition: 0.2s; /* 0.5 second transition effect to slide in the sidebar */
 }
 
@@ -762,10 +762,20 @@
   margin-top: -10%;
 }
 
+#main :hover{
+  cursor: pointer;
+}
+
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
   transition: margin-left .5s; /* If you want a transition effect */
-  padding: 20px;
+  display: inline-block;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

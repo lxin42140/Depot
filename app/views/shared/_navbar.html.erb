@@ -1,5 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/" style="font-family:'Courier New'; font-size: 40px;">Depot</a>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <% if user_signed_in? == true && current_user.access_right_enum == 2 %>
+    <div id="main">
+      <a class="navbar- " style="font-family:'Courier New'; font-size: 40px;" id="openbtn" onclick="openNav()"><span style="font-size: 30px;padding-right: 3%;">&#9776;</span>Depot</a>
+    </div>
+  <% else %>
+    <a class="navbar-brand" style="font-family:'Courier New'; font-size: 40px;" >Depot</a>
+  <% end %>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
