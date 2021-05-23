@@ -40,6 +40,11 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "form-control", placeholder: "Password"%>
         </div>
 
+        <div class="form-group">
+          <%= f.label :profile_image %><br/>
+          <%= f.file_field :profile_image, class: "form-control-file"%>
+        </div>
+
         <div class="form-group" hidden>
           <%= f.label :access_right_enum %><br />
           <%= f.text_field :access_right_enum, value: 1 %>

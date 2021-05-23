@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :products, through: :products_staffs
   has_many :sale_transactions
   has_one :cart
+  has_one_attached :profile_image
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -23,5 +24,9 @@ class User < ApplicationRecord
     raise NoUserLoggedInException.new "No user is logged in!" if user.nil?
     return user.access_right_enum == 1 ? true : false
   end 
+
+  def has_access_to_side_bar(path)
+    return access_right_enum == 2 && !path["products/"] && !path["users/"] 
+  end
 
 end

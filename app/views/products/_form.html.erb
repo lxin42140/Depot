@@ -1,7 +1,7 @@
 <%= form_for @product, :remote => true do |f| %>
 
-  <% if product.errors.any? %>
-    <% product.errors.each do |error| %>
+  <% if @product.errors.any? %>
+    <% p@roduct.errors.each do |error| %>
       <div class="alert alert-danger" role="alert">
         <%= error.full_message %>
       </div>

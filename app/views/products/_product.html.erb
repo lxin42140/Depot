@@ -8,10 +8,10 @@
             <% end %>
         </div>
         <div class="card-body">
-        <h5 class="card-title"><%= product.name %></h5>
-        <p class="card-text"><%= number_to_currency(number_with_delimiter(product.unit_price, delimiter: ",")) %></p>
-        <%= link_to 'View details', product, method: :get, class: 'btn btn-primary' %>
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= number_to_currency(number_with_delimiter(product.unit_price, delimiter: ",")) %></p>
+            <%= link_to 'View details', product, method: :get, class: 'btn btn-primary' %>
         </div>
     </div>
-    <br/>
+    <br />
 </div>
