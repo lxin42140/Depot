@@ -1,11 +1,10 @@
-<% flash.each do |type, msg| %>
-    <% if type == "error" %>
-        <div id="flash-message" class="alert alert-danger float-message" role="alert">
-            <%= msg %>
-        </div>
-    <% else %>
-        <div id="flash-message" class="alert alert-info float-message" role="alert">
-            <%= msg %>
-        </div>
-    <% end %>
+<% if flash.any? %>
+    <script type="text/javascript">
+        <% flash.each do |key, value| %>
+            <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
+            toastr.<%= type %>('<%= value %>', '', {
+                "positionClass": "toast-top-left"
+            })
+        <% end %>
+    </script>
 <% end %>

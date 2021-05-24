@@ -1,6 +1,6 @@
 class ProductPartsController < ApplicationController
     before_action :set_product_part, only: %i[ show edit update destroy ]
-    before_action only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
+    before_action only: [:index, :new, :create, :edit, :update, :destroy] do 
       self.check_access(User.access_rights[:manager])
     end
 

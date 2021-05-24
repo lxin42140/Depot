@@ -17,8 +17,13 @@
 @import "bootstrap";
 @import "font-awesome";
 @import './users.scss';
+@import "toastr/toastr";
 
-// @import "../../../node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css";
+/** =====================================Toastr==============================*/
+
+.toast {
+  opacity: 1 !important;
+}
 
 /** =====================================FORM VALIDATION ERROR==============================*/
 .field_with_errors {

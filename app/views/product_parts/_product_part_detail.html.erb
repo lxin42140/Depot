@@ -14,12 +14,14 @@
             <%= fa_icon "info"%>
             <%= product_part_detail.description %>
         </p>
-        <%= link_to (edit_product_part_path(product_part_detail)), remote: true, class: 'btn btn-primary', style: "color: white" do %>
-            <%= fa_icon "pencil" %> Edit Product Part
-        <% end %>
-        &nbsp;
-        <%= link_to (product_part_detail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', style: "color: white" do %>
-            <%= fa_icon "trash" %> Delete Product Part
+        <% if current_user.present? && current_user.access_right_enum == 2 %>
+            <%= link_to (edit_product_part_path(product_part_detail)), remote: true, class: 'btn btn-primary', style: "color: white" do %>
+                <%= fa_icon "pencil" %> Edit Product Part
+            <% end %>
+            &nbsp;
+            <%= link_to (product_part_detail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', style: "color: white" do %>
+                <%= fa_icon "trash" %> Delete Product Part
+            <% end %>
         <% end %>
     </div>
 </div>
