@@ -10,6 +10,7 @@ import "channels"
 import "packs/bootstrap"
 import $ from 'jquery';
 import "select2";
+
 window.$ = window.jQuery = window.jquery = jQuery;
 global.toastr = require("toastr");
 require("@nathanvda/cocoon")

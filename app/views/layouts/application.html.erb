@@ -19,7 +19,9 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
+    <% unless request.path.to_s['hotels'] %>
+      <%=  render 'shared/navbar'  %>
+    <%  end %>
     <%= render partial: "shared/flash_message", locals: { flash: flash } %>
 
     <%= yield %>

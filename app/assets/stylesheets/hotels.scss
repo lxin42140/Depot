@@ -1,0 +1,282 @@
+
+/*========================================REGISTRATION FORM==============================================*/
+body {
+  font-family: "Muli-Regular";
+  font-size: 15px;
+  color: #999;
+  margin: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+input, textarea, select, button {
+  font-family: "Muli-Regular";
+  font-size: 15px;
+}
+
+p, h1, h2, h3, h4, h5, h6, ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.wrapper {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),  url("sterling.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer{
+  color: white;
+  margin-top: -1%;
+}
+
+.registrations-form{
+  width: 60%;
+  height: 75%;
+  border: 3px solid #A48111;
+}
+
+.inner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: rgba(247,241,234,1);
+}
+
+/**==============Carousell==================================*/
+.image-holder {
+  width: 50%;
+  height: 100%;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-control-prev:hover, :active{
+  background: white;
+}
+
+.carousel-control-next:hover, :active{
+  background: white;
+}
+
+/**==============Form Header==================================*/
+.form-header {
+  border: 1px solid #A48111;
+  padding: 5px 15px;
+  margin-bottom: 90px;
+  margin-top: -10px;
+  text-align: center;
+}
+
+h3 {
+  font-family: "Muli-SemiBold";
+  font-size: 22px;
+  color: #A48111;
+  letter-spacing: 7px;
+}
+
+/**==============Tagline==================================*/
+.tagline {
+  font-family: "Muli-SemiBold";
+  margin-top: -10%;
+  font-size: 17px;
+  color: #6d7f52;
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+/**==============Form Content==================================*/
+.form-content {
+  width: 50%;
+  padding-top: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  position: relative;
+}
+
+.form-holder {
+  width: 50%;
+  margin-right: 10%;
+  margin-bottom: 10%;
+}
+
+.form-holder:last-child {
+  margin-right: 0;
+}
+
+.form-holder {
+  position: relative;
+}
+
+.form-control {
+  outline: 0;
+  height: 37px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(14,30,42,0.6);
+  width: 100%;
+  padding: 0;
+  background: none;
+}
+
+//override boot-strap form placeholder styling
+form .form-control::-webkit-input-placeholder {
+  color: rgba(14,30,42,0.6);
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+.form-control:focus {
+  outline: 0;
+  border-color: rgba(200,157,105,0.51);
+  background: none;
+}
+
+.form-row {
+  display: block;
+  margin-bottom: 5%;
+  margin-left: 1px;
+}
+
+.message-area {
+  height: 99px;
+  width:  255%;
+}
+
+.message-area:focus::placeholder {
+  color: transparent;
+}
+
+.submit-button-wrapper {
+  margin-top: 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-button {
+  height: 41px;
+  width: 135px;
+  background: #A48111;
+  color: white !important;
+  font-family: muli-semibold !important;
+  cursor: pointer;
+  text-align: center;
+  border:none;
+}
+
+.form-footer {
+  position: absolute;
+  bottom: 0;
+  left: 87%;
+}
+
+.social-media-link {
+  cursor: pointer;
+  font-size: 20px;
+  color: rgba(200,157,105,0.4) !important;
+}
+
+.social-media-link:hover {
+  color: #A48111 !important;
+}
+
+/**==============select2==================================*/
+.select-room-type {
+  width:  217%;
+}
+
+.select2-results { background-color: rgba(247,241,234,0.89); }
+.select2-search input { background-color: rgba(247,241,234,0.89); }
+.select2-search { background-color: rgba(247,241,234,0.89); }
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: rgba(200,157,105,0.89);
+  color: #fff;
+}
+
+/**==============Model==================================*/
+.modal-title {
+  text-align: center;
+}
+
+.modal-content  {
+  background: rgba(14,30,42,1);
+  font-family: "Muli-SemiBold";
+  font-size: 22px;
+  font-weight: bolder;
+  color: rgba(193,149,101,0.89);
+  letter-spacing: 3px;
+}
+
+.custom-table {
+  tbody {
+    td {
+      color: #fff;
+      font-weight: 300;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      border: none;
+      transition: .3s all ease;
+    }
+    tr {
+      transition: .3s all ease;
+      &:hover, &:focus {
+        td {
+          color: gold;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1800px) {
+  .registrations-form{
+    width: 80%;
+    height: 92%;
+  }
+
+  .message-area {
+    width:  260%;
+  }
+
+  .select-room-type {
+    width:  223%;
+  }
+
+  .submit-button-wrapper {
+    margin-top: -2%;
+  }
+}

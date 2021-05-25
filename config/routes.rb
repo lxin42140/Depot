@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hotels
   devise_for :users
   root to: "products#index"
   # match '*path' => redirect("products#index"), via: [:get]
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
   resources :sale_transaction_line_items
   resources :products
   resources :product_parts
+  resources :hotels
 end

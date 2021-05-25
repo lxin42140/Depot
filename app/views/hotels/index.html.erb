@@ -1,0 +1,238 @@
+<div class="wrapper">
+  <form class="registrations-form" action="" method="">
+    <div class="inner">
+      <div class="image-holder">
+          <div id="carouselImages" class="carousel slide" data-ride="carousel" title="Click image to show project info">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            </ol>
+            <div class="carousel-inner" data-toggle="modal" data-target="#exampleModalLong">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://picsum.photos/200/300" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>First Image</h5>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://picsum.photos/200/300" alt="Third slide">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Second Image</h5>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselImages" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselImages" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+      </div><!--End image-holder-->
+      <div class="form-content">
+        <div class="form-header">
+          <h3><%= image_tag("logo.PNG", width: "10%") %> REGISTRATION</h3>
+        </div>
+        <p class="tagline">Please fill in the register form to receive project information</p>
+        <div class="d-flex">
+          <div class="form-holder">
+            <label for="first_name"><input type="text" placeholder="First Name" class="form-control" id="first_name" name="first_name"></label>
+          </div>
+          <div class="form-holder">
+            <label for="last_name"><input type="text" placeholder="Last Name" class="form-control" id="last_name" name="last_name"></label>
+          </div>
+        </div><!--End d-flex-->
+        <div class="d-flex">
+          <div class="form-holder">
+            <label for="email"><input type="email" placeholder="Email" class="form-control" id="email" name="email"></label>
+          </div>
+          <div class="form-holder">
+            <label for="contact_number"><input type="text" placeholder="Contact Number" class="form-control" id="contact_number" name="contact_number"></label>
+          </div>
+        </div><!--End d-flex-->
+        <div class="form-row">
+          <label for="room_type">
+            <select class="select-room-type" id="room_type" name="room_type">
+              <option disabled selected value>Select an interested room type</option>
+              <option value="2BR">2 Bedroom</option>
+              <option value="2BR">2 Bedroom</option>
+              <option value="3BR">3 Bedroom</option>
+              <option value="Penthouse">Penthouse</option>
+            </select>
+          </label>
+        </div><!--End property type selection-->
+        <div class="form-row">
+          <label for="message"><textarea placeholder="Enter your message here" class="form-control message-area" id="message" name="message"></textarea></label>
+        </div><!--End message-->
+        <div class="submit-button-wrapper">
+          <button class="submit-button" type="submit">Submit</button>
+        </div>
+        <div class="form-footer">
+          <%= fa_icon "facebook", class: "social-media-link", title: "Visit Us At Facebook", onclick: "" %> &#160;
+          <%= fa_icon "instagram", class:"social-media-link", title: "Visit Us At Instagram", onclick: "" %> &#160;
+          <%= fa_icon "phone" , class: "social-media-link", title: "Call Us At 6868686868", onclick: "" %>
+        </div>
+      </div><!--End form-content-->
+    </div><!--End inner-->
+  </form><!--End form-->
+</div>
+
+<footer class="footer">
+  <h6>&copy; Wright Management International Pte Ltd
+  </h6>
+</footer>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="ModelPropertyDetails" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModelPropertyDetails">
+          <%= image_tag("Vivaland_light_trans.png", width: "10%") %>
+          OLA EC Project Info
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped custom-table">
+          <tbody>
+            <tr scope="row">
+              <td>District</td>
+              <td>
+                1392
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Developer</td>
+              <td>
+                Anchorvale Pte. Ltd. (EVIA Real Estate and Gamuda Land (Singapore))
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Address</td>
+              <td>
+                70 -86 Anchorvale Crescent
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Tenure</td>
+              <td>
+                99 years leasehold wef 23 Aug 2019
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Site Area</td>
+              <td>
+                17,137.3 sqm / 184,465.9 sqft
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Type of Development</td>
+              <td>
+                Executive Condominium
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>No. Of Units</td>
+              <td>
+                548
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>No. of Blocks/Storeys</td>
+              <td>
+                9 Blocks of 16-Storey Residential Flat Development with Basement Carpark
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>No. Of Carparks</td>
+              <td>
+                548 residential and 3 handicap lots
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Plot Ratio</td>
+              <td>
+                3.0
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Architect</td>
+              <td>
+                AGA Architects Pte Ltd
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Landscape Consultant</td>
+              <td>
+                Ecoplan Asia
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Main Contractor</td>
+              <td>
+                Wee Poh Construction Co. Pte. Ltd
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Conveyance Solicitor</td>
+              <td>
+                Rajah & Tann Singapore LLP
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Facilities</td>
+              <td>
+                50m Lap Pool, Spa Forest, Sensorio Walk, Culinary Canbana, Tennis Court, Clubhouse, Gymnasium, Rooftop Bar, BBQ Pavilion
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Developer Licence</td>
+              <td>
+                C1348
+              </td>
+            <tr scope="row">
+              <td>Project Account No.</td>
+              <td>
+                DBS Bank Ltd for Project A/C No. 003-700136-8 of Anchorvale Pte. Ltd.
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Expected Date of TOP</td>
+              <td>
+                14 Dec 2023
+              </td>
+            </tr>
+            <tr scope="row">
+              <td>Expected Date of Legal Completion</td>
+              <td>
+                14 Dec 2026
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $('select').select2();
+    //styling options for select2
+    $('.select2-selection').css({
+        'border': 'none',
+        'border-bottom': '2px solid rgba(14,30,42,0.6)',
+        'height': '37px',
+        'border-radius': '0',
+        'background': 'none'
+    });
+    $('.select2-selection__rendered').css({
+        'color': 'rgba(14,30,42,0.6)',
+        'font-size': '1rem',
+        'font-family': 'Muli-SemiBold',
+        'padding': '0'
+    });
+</script>
